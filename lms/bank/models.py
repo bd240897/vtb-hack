@@ -1,11 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+import requests as requests_lib
 
-# def create_acount():
-#     url = 'https://hackathon.lsp.team/hk/v1/wallets/new'
-#     headers = {'Authorization': 'Bearer example-auth-code'}
-#     payload = {'name': 'Mark', email: 'mark@bearer.sh'}
-#     response = requests.post(url, data=payload)
 
 
 class Customer(models.Model):
@@ -22,13 +18,20 @@ class Customer(models.Model):
 
 
 class Account(models.Model):
-    balance = models.DecimalField(
-        default=0,
-        max_digits=12,
-        decimal_places=2
-    )
-
     user = models.ForeignKey(User, on_delete=models.PROTECT)
+    balance = models.DecimalField(default=0, max_digits=12, decimal_places=2)
+    publicKey = models.CharField(max_length=255, blank=True, null=True)
+    privateKey = models.CharField(max_length=255, blank=True, null=True)
+
+    def create_wallet(self):
+        url = 'https://hackathon.lsp.team/hk/v1/wallets/new'
+        response = requests_lib.post(url)
+        respons_json = response.json()
+        publicKey = respons_json.get("publicKey")
+        privateKey = respons_json.get("privateKey")
+        self.publicKey = publicKey
+        self.privateKey = privateKey
+        self.save()
 
     def __str__(self):
         return f'{self.id} of {self.user.username}'

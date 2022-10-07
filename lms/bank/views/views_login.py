@@ -4,6 +4,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, TemplateView, ListView, DetailView, RedirectView
 from ..forms import *
+from ..models import Account
+from django.contrib.auth.models import User
 
 # //////////////////////////// LOGIN ////////////////////////////////////////
 
@@ -20,9 +22,10 @@ class RegisterUser(CreateView):
 
     def form_valid(self, form):
         user = form.save()
+        account = Account.objects.create(user=user)
+        account.create_wallet()
         login(self.request, user)
-        return redirect('main_room')
-
+        return redirect('main')
 
 class LoginUser(LoginView):
     """Логин"""
@@ -31,7 +34,7 @@ class LoginUser(LoginView):
     template_name = 'bank/login/login.html'
 
     def get_success_url(self):
-        return reverse_lazy('main_room')
+        return reverse_lazy('main')
 
 
 class TempView(TemplateView):
@@ -44,4 +47,4 @@ def logout_user(request):
     """Разлогиниться"""
 
     logout(request)
-    return redirect('main_room')
+    return redirect('main')
