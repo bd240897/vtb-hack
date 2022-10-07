@@ -23,6 +23,10 @@ class ProfileView(TemplateView):
         self.get_history_transaction()
         context['history'] = self.history
         context['form'] = TransferForm()
+
+        customer = Customer.objects.get(user=self.request.user)
+        id_profile = customer.id
+        context['id_profile'] = id_profile
         return context
 
     def post(self, request, *args, **kwargs):
@@ -94,6 +98,8 @@ class ProfileEditView(UpdateView):
 class PanelView(TemplateView):
     template_name = 'bank/pages/admin_panel.html'
 
+class ActivitiesView(TemplateView):
+    template_name = 'bank/pages/activities.html'
 
 class ShopView(TemplateView):
     template_name = 'bank/pages/shop.html'
