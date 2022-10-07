@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 import requests as requests_lib
 
-
+# TODO rename it for Profile
 class Customer(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True)
     city = models.CharField(max_length=255, blank=True, null=True)

@@ -62,3 +62,23 @@ class LoginUserForm(AuthenticationForm):
     #         'username': forms.TextInput(attrs=parm_username),
     #         'password': forms.PasswordInput(attrs=param_password),
     #     }
+
+class TransferForm(forms.Form):
+    """Перевести бабло"""
+    CHOICES = (
+        ('matic', 'matic'),
+        ('ruble', 'ruble'),
+        ('nft', 'nft'),
+    )
+    type_coin = forms.ChoiceField(widget=forms.Select, choices=CHOICES, initial='matic')
+    from_account = forms.CharField(label='', widget=forms.TextInput(), initial='1cc9bfcb74505f68521d03b7379cb1e92fe12cdc4717f709b517250ca0f9fc44')
+    to_account = forms.CharField(label='', widget=forms.TextInput(), initial='0x15Cc4abzz27647ec9fE70D892E55586074263dF0')
+    amount = forms.CharField(label='', widget=forms.TextInput(), initial='1')
+
+class ProfleEditForm(forms.ModelForm):
+    """"""
+
+    class Meta:
+        model = Customer
+        fields = "__all__"
+

@@ -8,7 +8,7 @@ urlpatterns = [
 
     path('main/', MainView.as_view(), name='main'),
     path('profile/', ProfileView.as_view(), name='profile'),
-    path('profile_edit/', ProfileEditView.as_view(), name='profile_edit'),
+    path('profile/edit/<slug:pk>/', ProfileEditView.as_view(), name='profile_edit'),
     path('activities/', ProfileEditView.as_view(), name='activities'),
     path('shop/', ShopView.as_view(), name='shop'),
     path('panel/', PanelView.as_view(), name='panel'),
