@@ -2,3 +2,4 @@
 /lms/db.sqlite3
 /lms/bank/migrations/
 /users/bank/migrations/
+/lms/users/migrations/
