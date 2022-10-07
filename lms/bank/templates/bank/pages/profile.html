@@ -1,0 +1,68 @@
+{% extends 'bank/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<section>
+    <div class="container">
+        <h1>profile пользователя {{user}}</h1>
+
+        <div class="results_to_end d-flex justify-content-between">
+            <a href="{% url 'profile_edit' 1 %}" class="answer_link btn btn-primary">Редактировать Профиль</a>
+        </div>
+
+        <div>
+            <img src="{{customer.avatar.url}}" alt="">
+            <h5>Анкета</h5>
+            <p>name = {{customer.name}}</p>
+            <p>city = {{customer.city}}</p>
+            <p>rank = {{customer.rank}}</p>
+            <p>description = {{customer.description}}</p>
+        </div>
+
+        <div>
+            <h5>Баланс</h5>
+            <p>maticAmount = {{balance.maticAmount}}</p>
+            <p>coinsAmount = {{balance.coinsAmount}}</p>
+        </div>
+
+        <div>
+            <h5>История операций</h5>
+            {% if history %}
+            Пока транзакций нет
+            {% else %}
+            <p>{{history}}</p>
+            {% endif %}
+        </div>
+
+        <div>
+            <h5>Перевести денежку</h5>
+
+            <!-- ОПОВЕЩЕНИЯ ДЖАНГИ -->
+            {% include '../blocks/django_messages.html' %}
+
+            <div class="enter-game d-flex flex-column justify-content-center align-items-center py-2">
+                <form class="enter-game__form row g-3" method="post">
+                    <div class="enter-game__input col-auto">
+                        {{ form.as_p }}
+                    </div>
+                    <!--TODO пока тут перевод только по открытому ключу-->
+                    TODO пока тут перевод только по открытому ключу!!!!!!!!!!!
+                    <div class="enter-game__btn col-auto">
+                        <button id="btn-enter-game" type="submit" class="btn btn-primary mb-3">Перевести</button>
+                    </div>
+                    {% csrf_token %}
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    img{
+        width: 100%;
+        height: auto;
+        max-width: 300px;
+    }
+</style>
+{% endblock %}
