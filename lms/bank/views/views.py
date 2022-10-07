@@ -1,3 +1,3 @@
-from .views_drf import *
-from .views_dt import *
+# from .views_drf import *
+from .views_django_templates import *
 from .views_login import *

@@ -3,23 +3,19 @@ from django.contrib.auth.models import User
 import requests as requests_lib
 
 
-
 class Customer(models.Model):
-    fname = models.CharField(max_length=255)
-    lname = models.CharField(max_length=255)
-    city = models.CharField(max_length=255)
-    house = models.CharField(max_length=255)
-    image = models.ImageField(null=True, upload_to='bank/customer')
-
+    name = models.CharField(max_length=255, blank=True, null=True)
+    city = models.CharField(max_length=255, blank=True, null=True)
+    rank = models.CharField(max_length=255, blank=True, null=True)
+    description = models.CharField(max_length=255, blank=True, null=True)
+    avatar = models.ImageField(upload_to='bank/customer', default='bank/customer/avatar_default.png')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.fname} {self.lname}'
-
+        return f'{self.name}'
 
 class Account(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
-    balance = models.DecimalField(default=0, max_digits=12, decimal_places=2)
     publicKey = models.CharField(max_length=255, blank=True, null=True)
     privateKey = models.CharField(max_length=255, blank=True, null=True)
 

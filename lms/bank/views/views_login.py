@@ -17,15 +17,13 @@ class RegisterUser(CreateView):
     template_name = 'bank/login/register.html'
     success_url = reverse_lazy('game_login')
 
-    def get_success_url(self):
-        return reverse_lazy('game_login')
-
     def form_valid(self, form):
         user = form.save()
         account = Account.objects.create(user=user)
         account.create_wallet()
+        сustomer = Customer.objects.create(user=user)
         login(self.request, user)
-        return redirect('main')
+        return redirect('profile')
 
 class LoginUser(LoginView):
     """Логин"""
@@ -34,7 +32,7 @@ class LoginUser(LoginView):
     template_name = 'bank/login/login.html'
 
     def get_success_url(self):
-        return reverse_lazy('main')
+        return reverse_lazy('profile')
 
 
 class TempView(TemplateView):
