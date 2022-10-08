@@ -1,7 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.views.generic import TemplateView, UpdateView, RedirectView
+from django.views import View
+from django.views.generic import TemplateView, UpdateView, RedirectView, CreateView
 from ..models import *
 from ..forms import *
 from django.contrib import messages
@@ -42,13 +43,14 @@ class ProfileView(LoginRequiredMixin, TemplateView):
         # данные акканута
         account = Account.objects.get(user=self.request.user)
         public_key = account.publicKey
+        print(public_key)
         # TODO delete
         # public_key = "0x0787638C8EdA33712B1FbC2dCF3dfa6603fa0C54"
 
         # получение баланса и истории транзакций
         context['balance'] = get_balance(public_key=public_key)
         context['balance_NFT'] = get_balance_NFT(public_key=public_key)
-        context['history'] = get_history_transaction(public_key=public_key).get('history')
+        context['history'] = get_history_transaction(public_key=public_key).get('history')[:10]
 
         # форма перевода денег
         context['form'] = TransferForm()
@@ -59,7 +61,10 @@ class ProfileView(LoginRequiredMixin, TemplateView):
         # работа с формой для перевода денег
 
         # form = TransferForm(request.POST)
-        from_account = request.POST.get('from_account')
+        # from_account = request.POST.get('from_account')
+        account = Account.objects.get(user=self.request.user)
+        from_account = account.privateKey
+
         to_account = request.POST.get('to_account')
         amount = request.POST.get('amount')
         type_coin = request.POST.get('type_coin')
@@ -105,3 +110,7 @@ class ShopView(TemplateView):
     """Страница магазина"""
 
     template_name = 'bank/pages/shop.html'
+
+# class aaa(View):
+#     account = Account.objects.get(user=self.request.user)
+#     from_account = account.privateKey

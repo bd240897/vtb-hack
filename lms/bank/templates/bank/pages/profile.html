@@ -26,7 +26,17 @@
                 <h5>Баланс</h5>
                 <p>maticAmount = {{balance.maticAmount}}</p>
                 <p>coinsAmount = {{balance.coinsAmount}}</p>
-                {{balance_NFT}}
+
+                <div class="py-3">
+                    {% for NFT_uri in balance_NFT %}
+                    <p>Для uri = {{NFT_uri.uri}}</p>
+                    <p>Вы владеете NFT с номерами:</p>
+                    {% for NFT_token in NFT_uri.tokens %}
+                    {{NFT_token}}
+                    {% endfor %}
+                    {% endfor %}
+                </div>
+
             </div>
         </div>
     </div>
@@ -36,20 +46,19 @@
     <div class="container border border-primary">
         <h5>История операций</h5>
         {% if not history %}
-        Пока транзакций нет
+            Пока транзакций нет
         {% else %}
             {% for h in history %}
-                <p>{{h}}</p>
+                <div class="element-history">
+                    <p>От кого = {{h.from}}</p>
+                    <p>Кому = {{h.to}}</p>
+                    <p>Что = {{h.tokenName}}</p>
+                    <p>Cколько = {{h.value}}</p>
+                    <p>Статус = {{h.isError}}</p>
+                    <button>Next</button> <button>Previous</button>
+                </div>
             {% endfor %}
         {% endif %}
-        <div class="element-history">
-            <p>От кого = Dima</p>
-            <p>Кому = Mahsa</p>
-            <p>Что = NFT</p>
-            <p>Cколько = 1</p>
-            <p>Статус = Успешно</p>
-            <button>Next</button> <button>Previous</button>
-        </div>
     </div>
 </section>
 
@@ -110,7 +119,6 @@
 
     </div>
 </section>
-
 
 <section class="py-3">
     {% if worker.is_user_boss %}
