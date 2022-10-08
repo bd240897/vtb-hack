@@ -29,7 +29,6 @@ class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'bank/pages/profile.html'
     login_url = 'game_login'
     redirect_field_name = 'main'
-    permission_denied_message = "aaaaaaaaaaaaaSASSSSS"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
