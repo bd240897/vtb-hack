@@ -15,6 +15,7 @@ INSTALLED_APPS = [
 
     'bank.apps.BankConfig',
     'users.apps.UsersConfig',
+    'polls',
 ]
 
 MIDDLEWARE = [

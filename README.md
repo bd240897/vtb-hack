@@ -23,4 +23,8 @@ python 3.8, django 4
 # Точка входа
     http://127.0.0.1:8000/bank/main
 
+# Запуск через Docker
+    git clone https://github.com/bd240897/vtb-hack.git
+    docker-compose up
+
 

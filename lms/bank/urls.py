@@ -11,6 +11,7 @@ urlpatterns = [
     path('activities/', ActivitiesView.as_view(), name='activities'),
     path('shop/', ShopView.as_view(), name='shop'),
     path('panel/', PanelView.as_view(), name='panel'),
+
 ]
 
 urlpatterns_login = [
