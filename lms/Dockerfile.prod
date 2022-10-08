@@ -1,0 +1,44 @@
+# образ на основе которого создаём контейнер
+FROM python:3.8.6-alpine
+
+# переменные окружения для python
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+ENV HOME=/home/project
+ENV MYSITE_HOME=/home/project/mysite
+ENV MEDIA_DIR=/home/project/mysite/media
+ENV STATIC_DIR=/home/project/mysite/static
+
+# Устанавливаем зависимости для Postgre
+RUN apk update \
+    && apk add postgresql-dev gcc python3-dev musl-dev libpq
+
+# создание каталога для приложения
+RUN mkdir -p $MYSITE_HOME
+RUN mkdir $MYSITE_HOME/static
+RUN mkdir $MYSITE_HOME/media
+WORKDIR $MYSITE_HOME
+
+# устанавливаем зависимости
+RUN pip install --upgrade pip
+COPY ./requirements.txt $MYSITE_HOME
+RUN pip install -r requirements.txt
+
+# копирование entrypoint-prod.sh
+COPY ./entrypoint.prod.sh $MYSITE_HOME
+
+# копирование проекта Django
+COPY . $MYSITE_HOME
+
+# создаем отдельного пользователя
+RUN addgroup -S mysite && adduser -S mysite -G mysite
+
+# изменение прав для пользователя app
+RUN chown -R mysite:mysite $MYSITE_HOME
+RUN chown -R mysite:mysite $MEDIA_DIR
+RUN chown -R mysite:mysite $STATIC_DIR
+
+# изменение рабочего пользователя
+USER mysite
+
+ENTRYPOINT ["/home/project/mysite/entrypoint.prod.sh"]
