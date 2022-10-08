@@ -16,12 +16,14 @@ RUN apk update \
 
 # устанавливаем зависимости
 RUN pip install --upgrade pip
-# TODO error there
-RUN pip install -r lms/req.txt
-
 # копируем содержимое текущей папки в контейнер
 COPY . .
+# TODO error there
+RUN pip install -r req.txt
+
+## копируем содержимое текущей папки в контейнер
+#COPY . .
 
 RUN python manage.py migrate
-RUN python makemigrations bank
+RUN python manage.py makemigrations bank
 RUN python manage.py migrate
