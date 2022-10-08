@@ -11,7 +11,11 @@ urlpatterns = [
     path('activities/', ActivitiesView.as_view(), name='activities'),
     path('shop/', ShopView.as_view(), name='shop'),
     path('panel/', PanelView.as_view(), name='panel'),
-    path('profile/transfer/nfr', TransferNFTView.as_view(), name='transfer_NFT'),
+
+    ####### NFT #############
+    path('profile/generate/nft', GenerateNFTView.as_view(), name='generate_NFT'),
+    path('profile/transfer/nft', TransferNFTView.as_view(), name='transfer_NFT'),
+    path('profile/transfer/coin', TransferCoinView.as_view(), name='transfer_coin'),
 ]
 
 urlpatterns_login = [

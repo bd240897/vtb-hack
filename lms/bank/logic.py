@@ -46,6 +46,7 @@ def transfer_rubles(from_private_key, to_public_key, amount):
     response = requests_lib.post(url, data=payload)
     response = response.json()
     transfer_transaction = response.get('transaction', 0)
+    return response
     if transfer_transaction:
         return get_status_transaction(transfer_transaction)
     return response
@@ -103,7 +104,7 @@ def generate_NFT(public_key=None, amount=1):
     response = requests_lib.post(url, data=payload).json()
     transaction_hash = response.get("transaction_hash") # transaction_hash
 
-    return transaction_hash  #
+    return transaction_hash
 
 
 def NFT_list(transaction_hash_input):

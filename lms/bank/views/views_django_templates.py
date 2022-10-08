@@ -3,6 +3,8 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import View
 from django.views.generic import TemplateView, UpdateView, RedirectView, CreateView
+
+from ..mixins.panel_admin_mixins import *
 from ..models import *
 from ..forms import *
 from django.contrib import messages
@@ -24,18 +26,12 @@ class MainView(TemplateView):
     template_name = 'bank/pages/main.html'
 
 
-class ProfileView(LoginRequiredMixin, TemplateView):
+class ProfileView(PanelAdminMixi, LoginRequiredMixin, TemplateView):
     """Профиль пользователя"""
 
     template_name = 'bank/pages/profile.html'
     login_url = 'game_login'
     redirect_field_name = 'main'
-
-    def dispatch(self, request, *args, **kwargs):
-        if self.request.user.is_superuser:
-            messages.error(request, "У админа нет профиля!")
-            return HttpResponseRedirect(reverse("main"))
-        return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -50,9 +46,11 @@ class ProfileView(LoginRequiredMixin, TemplateView):
         account = Account.objects.get(user=self.request.user)
         public_key = account.publicKey
         private_key = account.privateKey
-        print(public_key)
-        # TODO delete
-        # public_key = "0x0787638C8EdA33712B1FbC2dCF3dfa6603fa0C54"
+
+        # TODO delete ot
+        # данные для отладки
+        context['public_key'] = public_key
+        context['private_key'] = private_key
 
         # получение баланса и истории транзакций
         context['balance'] = get_balance(public_key=public_key)
@@ -60,31 +58,12 @@ class ProfileView(LoginRequiredMixin, TemplateView):
         context['history'] = get_history_transaction(public_key=public_key).get('history')[:10]
 
         # форма перевода денег
-        context['form'] = TransferForm()
+        context['form_coin'] = TransferCoinForm()
         context['form_NFT'] = TransferNFTForm()
-
+        context['form_generate_NFT'] = GenerateNFTForm()
         return context
 
-    def post(self, request, *args, **kwargs):
-        # работа с формой для перевода денег
-
-        account = Account.objects.get(user=self.request.user)
-        private_key = account.privateKey
-
-        to_public_key = request.POST.get('to_account')
-        amount = request.POST.get('amount')
-        type_coin = request.POST.get('type_coin')
-
-        if type_coin == 'matic':
-            response = transfer_rubles(from_private_key=private_key, to_public_key=to_public_key, amount=amount)
-            messages.success(request, response)
-        elif type_coin == 'ruble':
-            response = transfer_matic(from_private_key=private_key, to_public_key=to_public_key, amount=amount)
-            messages.success(request, response)
-        return super().get(self, request, *args, **kwargs)
-
-
-class ProfileEditView(UpdateView):
+class ProfileEditView(PanelAdminMixi, UpdateView):
     """Редактирование профиля"""
 
     # https://stackoverflow.com/questions/52263711/generic-view-updateview-from-django-tutorial-does-not-save-files-or-images
@@ -95,12 +74,7 @@ class ProfileEditView(UpdateView):
     def get_success_url(self):
         return reverse('profile')
 
-class PanelView(TemplateView):
-    """Страница админа"""
-
-    template_name = 'bank/pages/admin_panel.html'
-
-class ActivitiesView(TemplateView):
+class ActivitiesView(PanelAdminMixi, TemplateView):
     """Страница активностей"""
 
     def get(self, request, *args, **kwargs):
@@ -110,13 +84,63 @@ class ActivitiesView(TemplateView):
 
     template_name = 'bank/pages/activities.html'
 
-class ShopView(TemplateView):
+class ShopView(PanelAdminMixi, TemplateView):
     """Страница магазина"""
 
     template_name = 'bank/pages/shop.html'
 
 
+class GenerateNFTView(View):
+    """Генерация NFT"""
+
+    def post(self, request):
+
+        account = Account.objects.get(user=self.request.user)
+        public_key = account.publicKey
+        private_key = account.privateKey
+
+        form = GenerateNFTForm(request.POST)
+        if form.is_valid():
+            amount = request.POST.get('amount')
+            response = generate_NFT(public_key, amount)
+            messages.success(request, response)
+            return HttpResponseRedirect(reverse("profile"))
+        else:
+            messages.error(request, 'Ошибка заполнения формы')
+            return HttpResponseRedirect(reverse("profile"))
+
+class TransferCoinView(View):
+    """Перевод coin"""
+
+    def post(self, request, *args, **kwargs):
+        # работа с формой для перевода денег
+
+        form = TransferCoinForm(request.POST)
+        print(request.POST)
+        account = Account.objects.get(user=self.request.user)
+        public_key = account.publicKey
+        private_key = account.privateKey
+
+        if form.is_valid():
+            to_public_key = request.POST.get('to_account')
+            amount = form.cleaned_data.get('amount')
+            type_coin = form.cleaned_data.get('type_coin')
+
+            if type_coin == 'matic':
+                response = transfer_rubles(from_private_key=private_key, to_public_key=to_public_key, amount=amount)
+                messages.success(request, response)
+            elif type_coin == 'ruble':
+                response = transfer_matic(from_private_key=private_key, to_public_key=to_public_key, amount=amount)
+                messages.success(request, response)
+            return HttpResponseRedirect(reverse("profile"))
+        else:
+            messages.error(request, 'Ошибка заполнения формы')
+            return HttpResponseRedirect(reverse("profile"))
+
+
 class TransferNFTView(View):
+    """Перевод NFT"""
+
     def post(self, request):
         form = TransferNFTForm(request.POST)
         account = Account.objects.get(user=self.request.user)
@@ -129,6 +153,34 @@ class TransferNFTView(View):
             messages.success(request, response)
             return HttpResponseRedirect(reverse("profile"))
         else:
-            print(form.errors)
-            messages.error(request, 'Ошбка заполнения формы')
+            messages.error(request, 'Ошибка заполнения формы')
             return HttpResponseRedirect(reverse("profile"))
+
+############### PANEL ADMIN ###################
+class PanelView(PanelAdminMixi, TemplateView):
+    """Страница админа"""
+
+    template_name = 'bank/pages/admin_panel.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # данные акканута
+        account = Account.objects.get(user=self.request.user)
+        public_key = account.publicKey
+        private_key = account.privateKey
+
+        # TODO delete ot
+        # данные для отладки
+        context['public_key'] = public_key
+        context['private_key'] = private_key
+
+        # получение баланса и истории транзакций
+        context['balance'] = get_balance(public_key=public_key)
+        context['balance_NFT'] = get_balance_NFT(public_key=public_key)
+
+        # форма перевода денег
+        context['form_coin'] = TransferCoinForm()
+        context['form_NFT'] = TransferNFTForm()
+        context['form_generate_NFT'] = GenerateNFTForm()
+        return context

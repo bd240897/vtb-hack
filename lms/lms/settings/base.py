@@ -16,6 +16,7 @@ INSTALLED_APPS = [
 
     'bank.apps.BankConfig',
     'users.apps.UsersConfig',
+    # 'panel.apps.PanelConfig',
 ]
 
 MIDDLEWARE = [

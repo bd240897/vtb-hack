@@ -3,6 +3,15 @@
 
 
 {% block content %}
+
+<section class="py-3">
+    <div class="container border border-primary">
+        <h5>Мои ключи</h5>
+        <p>public_key = {{public_key}}</p>
+        <p>private_key = {{private_key}}</p>
+    </div>
+</section>
+
 <section class="py-3">
     <div class="container border border-primary">
         <h1 class="text-center">Профиль пользователя {{user}}</h1>
@@ -46,18 +55,18 @@
     <div class="container border border-primary">
         <h5>История операций</h5>
         {% if not history %}
-            Пока транзакций нет
+        Пока транзакций нет
         {% else %}
-            {% for h in history %}
-                <div class="element-history">
-                    <p>От кого = {{h.from}}</p>
-                    <p>Кому = {{h.to}}</p>
-                    <p>Что = {{h.tokenName}}</p>
-                    <p>Cколько = {{h.value}}</p>
-                    <p>Статус = {{h.isError}}</p>
-                    <button>Next</button> <button>Previous</button>
-                </div>
-            {% endfor %}
+        {% for h in history %}
+        <div class="element-history">
+            <p>От кого = {{h.from}}</p>
+            <p>Кому = {{h.to}}</p>
+            <p>Что = {{h.tokenName}}</p>
+            <p>Cколько = {{h.value}}</p>
+            <p>Статус = {{h.isError}}</p>
+            <button>Next</button> <button>Previous</button>
+        </div>
+        {% endfor %}
         {% endif %}
     </div>
 </section>
@@ -70,15 +79,37 @@
             {% include '../blocks/django_messages.html' %}
 
             <div class="enter-game d-flex flex-column justify-content-center align-items-center py-2">
-                <form class="enter-game__form row g-3" method="post">
+                <form class="enter-game__form row g-3" method="post" action="{% url 'transfer_coin' %}">
                     <div class="enter-game__input col-auto">
-                        {{ form.as_p }}
+                        {{ form_coin.as_p }}
                     </div>
-                    <!--TODO пока тут перевод только по открытому ключу-->
                     <div class="enter-game__btn col-auto">
                         <button id="btn-enter-game" type="submit" class="btn btn-primary mb-3">Перевести</button>
                     </div>
                     {% csrf_token %}
+                </form>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="py-3">
+    <div class="container border border-primary">
+        <h5>Сгенерировать NFT</h5>
+        <div>
+            <!-- ОПОВЕЩЕНИЯ ДЖАНГИ -->
+            {% include '../blocks/django_messages.html' %}
+
+            <div class="enter-game d-flex flex-column justify-content-center align-items-center py-2">
+                <form class="enter-game__form row g-3" method="post" action="{% url 'generate_NFT' %}">
+                    <div class="enter-game__input col-auto">
+                        {{ form_generate_NFT.as_p }}
+                    </div>
+                    {% csrf_token %}
+                    <div class="enter-game__btn col-auto">
+                        <button id="btn-enter-game" type="submit" class="btn btn-primary mb-3">Перевести</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -121,9 +152,6 @@
 
     </div>
 </section>
-
-
-
 
 <style>
     img{

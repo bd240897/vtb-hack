@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django import forms
 from .models import *
 
+
 class RegisterUserForm(UserCreationForm):
     """Форма регитсрации"""
 
@@ -63,24 +64,52 @@ class LoginUserForm(AuthenticationForm):
     #         'password': forms.PasswordInput(attrs=param_password),
     #     }
 
-class TransferForm(forms.Form):
+
+class TransferCoinForm(forms.Form):
     """Перевести для перевода денег"""
 
     CHOICES = (
         ('matic', 'matic'),
         ('ruble', 'ruble'),
-        # ('nft', 'nft'),
     )
-    type_coin = forms.ChoiceField(widget=forms.Select, choices=CHOICES, initial='matic')
-    from_account = forms.CharField(label='', widget=forms.HiddenInput()) # initial='1cc9bfcb74505f68521d03b7379cb1e92fe12cdc4717f709b517250ca0f9fc44'
-    to_account = forms.CharField(label='', widget=forms.TextInput(), initial='0x15Cc4abzz27647ec9fE70D892E55586074263dF0')
-    amount = forms.CharField(label='', widget=forms.TextInput(), initial='1')
+    type_coin = {"class": "form-select"}
+
+    to_account_attr = {"type": "text",
+                       "class": "form-control",
+                       "placeholder": "Кому перевести?", }
+
+    amount_id_attr = {"type": "text",
+                      "class": "form-control",
+                      "placeholder": "Количество", }
+
+    type_coin = forms.ChoiceField(widget=forms.Select(attrs=type_coin), choices=CHOICES, initial='matic')
+    to_account = forms.CharField(label='', widget=forms.TextInput(attrs=to_account_attr),
+                                 initial='0x15Cc4abzz27647ec9fE70D892E55586074263dF0')
+    amount = forms.CharField(label='', widget=forms.TextInput(attrs=amount_id_attr), initial='1')
+
 
 class TransferNFTForm(forms.Form):
     """Перевести для перевода денег"""
-    # from_account = forms.CharField(label='', widget=forms.HiddenInput())
-    to_account = forms.CharField(label='', widget=forms.TextInput(), initial='0x15Cc4abzz27647ec9fE70D892E55586074263dF0')
-    token_id = forms.CharField(label='', widget=forms.TextInput(), initial='5')
+    to_account_attr = {"type": "text",
+                       "class": "form-control",
+                       "placeholder": "Кому перевести?", }
+
+    token_id_attr = {"type": "text",
+                     "class": "form-control",
+                     "placeholder": "Номер NFT", }
+
+    to_account = forms.CharField(label='', widget=forms.TextInput(attrs=to_account_attr),
+                                 initial='0x15Cc4abzz27647ec9fE70D892E55586074263dF0')
+    token_id = forms.CharField(label='', widget=forms.TextInput(attrs=token_id_attr), initial='5')
+
+class GenerateNFTForm(forms.Form):
+    """Перевести для перевода денег"""
+    amount_attr = {"type": "text",
+                   "class": "form-control",
+                   "placeholder": "Количество NFT", }
+
+    amount = forms.CharField(label='Введите', widget=forms.TextInput(attrs=amount_attr))
+
 
 class ProfleEditForm(forms.ModelForm):
     """Форма редактора профиля"""
@@ -89,4 +118,6 @@ class ProfleEditForm(forms.ModelForm):
         model = Profile
         fields = "__all__"
         exclude = ('user',)
+
+
 
