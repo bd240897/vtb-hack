@@ -9,7 +9,7 @@ services:
        context: ./lms
        dockerfile: Dockerfile
     # Запускаем сервер gunicorn - вместо python manage.py runserver 0.0.0.0:8000
-    command: gunicorn lms.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn lms.wsgi.prod:application --bind 0.0.0.0:8000
     # Открываем порт 8000 внутри и снаружи
     ports:
       - 8000:8000
@@ -40,7 +40,7 @@ services:
       - static_volume:/home/project/lms/static
       - media_volume:/home/project/lms/media
     ports:
-      - 1337:80
+      - 80:80
     depends_on:
       - web
 

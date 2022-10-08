@@ -2,7 +2,7 @@
 FROM python:3.8.6-alpine
 
 # рабочая директория внутри проекта
-WORKDIR /usr/src/lms
+WORKDIR /home/project/lms
 
 # переменные окружения для python
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -24,4 +24,4 @@ RUN pip install -r req.txt
 
 RUN chmod +x ./entrypoint.sh
 COPY ./entrypoint.sh ./usr/src/lms
-ENTRYPOINT ["/usr/src/lms/entrypoint.sh"]
+ENTRYPOINT ["./entrypoint.sh"]
