@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, TemplateView, ListView, DetailView, RedirectView
 from ..forms import *
-from ..models import Account
+from ..models import *
 from django.contrib.auth.models import User
 
 # //////////////////////////// LOGIN ////////////////////////////////////////

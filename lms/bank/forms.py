@@ -121,3 +121,57 @@ class ProfleEditForm(forms.ModelForm):
 
 
 
+# lass
+# CreateGroupForm(forms.ModelForm):
+# """Форма редактора профиля"""
+# owner = forms.ChoiceField(choices=[])
+#
+#
+# class Meta:
+#     name_attrs = {"type": "text",
+#                   "class": "form-control text-center",
+#                   "placeholder": "Название группы", }
+#
+#     model = VtbGroup
+#     fields = ('name', 'owner')
+#     widgets = {
+#         'name': forms.TextInput(attrs=name_attrs)
+#     }
+#
+#
+# # def clean_owner(self):
+# #     data = self.cleaned_data['owner']
+# #     self.cleaned_data['owner'] = User.objects.get(id=self.cleaned_data['owner'])
+# #     return data
+#
+# def __init__(self, *args, **kwargs):
+#     super().__init__(*args, **kwargs)
+#     self.fields['owner'].choices = [(User.objects.get(pk=x.id), x.username) for x in User.objects.all()]
+#
+#
+
+from django.contrib.auth.models import User
+class CreateGroupForm(forms.Form):
+    name = forms.CharField()
+    owner = forms.ChoiceField(choices=[])
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['owner'].choices = [(x.pk, x.username) for x in User.objects.all()]
+
+
+class AddUserToGroupForm(forms.Form):
+    user = forms.ChoiceField(choices=[])
+    group = forms.ChoiceField(choices=[])
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['user'].choices = [(x.pk, x.username) for x in User.objects.all()]
+        self.fields['group'].choices = [(x.pk, x.name) for x in VtbGroup.objects.all()]
+
+
+
+
+
+
+

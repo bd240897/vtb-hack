@@ -59,7 +59,7 @@ class VtbGroup(models.Model):
     """Группы"""
 
     name = models.CharField(max_length=255, blank=True, null=True)
-    onwer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='group_onwer')
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='group_onwer')
     users = models.ManyToManyField(User, related_name='group_users')
 
 
