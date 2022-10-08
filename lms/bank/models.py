@@ -3,16 +3,16 @@ from django.contrib.auth.models import User
 import requests as requests_lib
 
 # TODO rename it for Profile
-class Customer(models.Model):
+class Profile(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True)
     city = models.CharField(max_length=255, blank=True, null=True)
     rank = models.CharField(max_length=255, blank=True, null=True)
     description = models.CharField(max_length=255, blank=True, null=True)
-    avatar = models.ImageField(upload_to='bank/customer', default='bank/customer/avatar_default.png')
+    avatar = models.ImageField(upload_to='bank/profile', default='bank/profile/avatar_default.png')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.name}'
+        return f'{self.user.username} {self.id}'
 
 class Account(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT)

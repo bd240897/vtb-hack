@@ -79,6 +79,7 @@ class ProfleEditForm(forms.ModelForm):
     """"""
 
     class Meta:
-        model = Customer
+        model = Profile
         fields = "__all__"
+        exclude = ('user',)
 

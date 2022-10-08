@@ -15,6 +15,7 @@ python 3.8, django 4
     pip install -r req.txt
     python manage.py migrate
     python manage.py makemigrations bank
+    python manage.py migrate
     python manage.py collectstatic
     python manage.py createsuperuser
     python manage.py runserver

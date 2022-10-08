@@ -21,7 +21,7 @@ class RegisterUser(CreateView):
         user = form.save()
         account = Account.objects.create(user=user)
         account.create_wallet()
-        сustomer = Customer.objects.create(user=user)
+        Profile.objects.create(user=user)
         login(self.request, user)
         return redirect('profile')
 

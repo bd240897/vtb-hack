@@ -3,9 +3,8 @@ from django.urls import path, include, re_path
 from .views.views import *
 
 urlpatterns = [
-    # path('main/', MainView.as_view(), name='main'),
-    # path('bank/', TestView.as_view(), name='bank'),
-
+    # редирект на главную страницу
+    path('', RedirectMainView.as_view(), name='main'),
     path('main/', MainView.as_view(), name='main'),
     path('profile/', ProfileView.as_view(), name='profile'),
     path('profile/edit/<slug:pk>/', ProfileEditView.as_view(), name='profile_edit'),

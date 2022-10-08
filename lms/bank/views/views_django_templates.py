@@ -1,8 +1,17 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
-from django.views.generic import TemplateView, UpdateView
+from django.views.generic import TemplateView, UpdateView, RedirectView
 from ..models import *
 from ..forms import *
 from django.contrib import messages
+from ..logic import *
+
+class RedirectMainView(RedirectView):
+    """Простой редирект на главную"""
+
+    # https://ustimov.org/posts/11/
+    def get_redirect_url(self):
+        return reverse('main')
 
 class TestView(TemplateView):
     template_name = 'bank/django_templates/index.html'
@@ -12,21 +21,30 @@ class MainView(TemplateView):
     template_name = 'bank/pages/main.html'
 
 
-class ProfileView(TemplateView):
+class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'bank/pages/profile.html'
+    login_url = 'game_login'
+    redirect_field_name = 'main'
+    permission_denied_message = "aaaaaaaaaaaaaSASSSSS"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['customer'] = Customer.objects.get(user=self.request.user)
-        self.get_balance()
-        context['balance'] = self.balance
-        self.get_history_transaction()
-        context['history'] = self.history
+
+        profile = Profile.objects.get(user=self.request.user)
+        id_profile = profile.id
+        context['profile'] = profile
+        context['id_profile'] = id_profile
+
+        account = Account.objects.get(user=self.request.user)
+        public_key = account.publicKey
+        # TODO delete
+        # public_key = "0x0787638C8EdA33712B1FbC2dCF3dfa6603fa0C54"
+
+        context['balance'] = get_balance(public_key=public_key)
+        context['history'] = get_history_transaction(public_key=public_key).get('history')
+
         context['form'] = TransferForm()
 
-        customer = Customer.objects.get(user=self.request.user)
-        id_profile = customer.id
-        context['id_profile'] = id_profile
         return context
 
     def post(self, request, *args, **kwargs):
@@ -36,7 +54,7 @@ class ProfileView(TemplateView):
         amount = request.POST.get('amount')
         type_coin = request.POST.get('type_coin')
         if type_coin == 'matic':
-            response = self.transfer_rubles(from_account, to_account, amount)
+            response = transfer_rubles(from_account, to_account, amount)
             messages.success(request, response)
         elif type_coin == 'ruble':
             messages.error(request, "Метод еще не реализован!!!")
@@ -44,53 +62,20 @@ class ProfileView(TemplateView):
             messages.error(request, "Метод еще не реализован!!!")
         return super().get(self, request, *args, **kwargs)
 
-    def transfer_rubles(self, fromPrivateKey, toPublicKey, amount):
-        account = Account.objects.get(user=self.request.user)
-        publicKey = account.publicKey
-
-        url = f'https://hackathon.lsp.team/hk/v1/transfers/ruble'
-        payload = {
-            "fromPrivateKey": fromPrivateKey,
-            "toPublicKey": toPublicKey,
-            "amount": amount
-            }
-        response = requests_lib.post(url, data=payload)
-        respons_json = response.json()
-        print(respons_json)
-        return respons_json
-
     def transfer_matic(self):
         pass
 
     def transfer_NFT(self):
         pass
 
-    def get_balance(self):
-        account = Account.objects.get(user=self.request.user)
-        publicKey = account.publicKey
 
-        url = f'https://hackathon.lsp.team/hk/v1/wallets/{publicKey}/balance'
-        response = requests_lib.get(url)
-        respons_json = response.json()
-        maticAmount = respons_json.get("maticAmount")
-        coinsAmount = respons_json.get("coinsAmount")
-        self.balance = {"maticAmount": maticAmount, "coinsAmount": coinsAmount}
-
-    def get_history_transaction(self):
-        account = Account.objects.get(user=self.request.user)
-        publicKey = account.publicKey
-
-        url = f'https://hackathon.lsp.team/hk/v1/wallets/{publicKey}/history'
-        payload = {"page": 0, "offset": 100, "sort": "asc"}
-        response = requests_lib.post(url, data=payload)
-        respons_json = response.json()
-        self.history = respons_json
 
 
 class ProfileEditView(UpdateView):
+    # https://stackoverflow.com/questions/52263711/generic-view-updateview-from-django-tutorial-does-not-save-files-or-images
     template_name = 'bank/pages/profile_edit.html'
     form_class = ProfleEditForm
-    queryset = Customer.objects.all()
+    queryset = Profile.objects.all()
 
     def get_success_url(self):
         return reverse('profile')
