@@ -34,13 +34,6 @@ class LoginUser(LoginView):
     def get_success_url(self):
         return reverse_lazy('profile')
 
-
-class TempView(TemplateView):
-    """Заглушка"""
-
-    template_name = 'bank/login/home.html'
-
-
 def logout_user(request):
     """Разлогиниться"""
 

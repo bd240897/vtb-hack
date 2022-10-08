@@ -3,46 +3,58 @@
 
 
 {% block content %}
-<section>
-    <div class="container">
-        <h1>profile пользователя {{user}}</h1>
+<section class="py-3">
+    <div class="container border border-primary">
+        <h1 class="text-center">Профиль пользователя {{user}}</h1>
+        <div class="d-flex justify-content-between m-5">
+            <div>
+                <img src="{{profile.avatar.url}}" alt="">
+                <div class="results_to_end d-flex justify-content-center py-2">
+                    <a href="{% url 'profile_edit' id_profile %}" class="answer_link btn btn-primary">Редактировать Профиль</a>
+                </div>
+            </div>
 
-        <div class="results_to_end d-flex justify-content-between">
-            <a href="{% url 'profile_edit' id_profile %}" class="answer_link btn btn-primary">Редактировать Профиль</a>
-        </div>
+            <div>
+                <h5>Анкета</h5>
+                <p>name = {{profile.name}}</p>
+                <p>city = {{profile.city}}</p>
+                <p>rank = {{profile.rank}}</p>
+                <p>description = {{profile.description}}</p>
+            </div>
 
-        <div>
-            <img src="{{profile.avatar.url}}" alt="">
-            <h5>Анкета</h5>
-            <p>name = {{profile.name}}</p>
-            <p>city = {{profile.city}}</p>
-            <p>rank = {{profile.rank}}</p>
-            <p>description = {{profile.description}}</p>
-        </div>
-
-        <div>
-            <h5>Баланс</h5>
-            <p>maticAmount = {{balance.maticAmount}}</p>
-            <p>coinsAmount = {{balance.coinsAmount}}</p>
+            <div>
+                <h5>Баланс</h5>
+                <p>maticAmount = {{balance.maticAmount}}</p>
+                <p>coinsAmount = {{balance.coinsAmount}}</p>
+                {{balance_NFT}}
+            </div>
         </div>
     </div>
 </section>
 
-<section>
-    <div class="container">
-            <h5>История операций</h5>
-            {% if not history %}
-            Пока транзакций нет
-            {% else %}
-                {% for h in history %}
-                    <p>{{h}}</p>
-                {% endfor %}
-            {% endif %}
+<section class="py-3">
+    <div class="container border border-primary">
+        <h5>История операций</h5>
+        {% if not history %}
+        Пока транзакций нет
+        {% else %}
+            {% for h in history %}
+                <p>{{h}}</p>
+            {% endfor %}
+        {% endif %}
+        <div class="element-history">
+            <p>От кого = Dima</p>
+            <p>Кому = Mahsa</p>
+            <p>Что = NFT</p>
+            <p>Cколько = 1</p>
+            <p>Статус = Успешно</p>
+            <button>Next</button> <button>Previous</button>
+        </div>
     </div>
 </section>
 
-<section>
-    <div class="container">
+<section class="py-3">
+    <div class="container border border-primary">
         <h5>Перевести денежку</h5>
         <div>
             <!-- ОПОВЕЩЕНИЯ ДЖАНГИ -->
@@ -65,6 +77,55 @@
 
     </div>
 </section>
+
+<section class="py-3">
+    <div class="container border border-primary">
+        <h5>Перевести NFT</h5>
+        <div>
+            <!-- ОПОВЕЩЕНИЯ ДЖАНГИ -->
+            {% include '../blocks/django_messages.html' %}
+
+            <div class="enter-game d-flex flex-column justify-content-center align-items-center py-2">
+                <form class="enter-game__form row g-3" method="post">
+                    <input placeholder="От кого">
+                    <input placeholder="Кому">
+                    <input placeholder="id">
+                    <div class="enter-game__btn col-auto">
+                        <button id="btn-enter-game" type="submit" class="btn btn-primary mb-3">Перевести</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="py-3">
+    <div class="container border border-primary">
+        <h5>Cписок моих NFT</h5>
+        <div>
+            <p>Name</p>
+            <a>link</a>
+        </div>
+
+    </div>
+</section>
+
+
+<section class="py-3">
+    {% if worker.is_user_boss %}
+    <div class="container border border-primary">
+        <h5>Cоздать группу</h5>
+
+    </div>
+    {% endif %}
+    <div class="container border border-primary">
+        <h5>Мои группы</h5>
+
+    </div>
+</section>
+
+
 
 
 <style>

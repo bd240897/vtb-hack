@@ -64,7 +64,8 @@ class LoginUserForm(AuthenticationForm):
     #     }
 
 class TransferForm(forms.Form):
-    """Перевести бабло"""
+    """Перевести для перевода денег"""
+
     CHOICES = (
         ('matic', 'matic'),
         ('ruble', 'ruble'),
@@ -76,7 +77,7 @@ class TransferForm(forms.Form):
     amount = forms.CharField(label='', widget=forms.TextInput(), initial='1')
 
 class ProfleEditForm(forms.ModelForm):
-    """"""
+    """Форма редактора профиля"""
 
     class Meta:
         model = Profile
