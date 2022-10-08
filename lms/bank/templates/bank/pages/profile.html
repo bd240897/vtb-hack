@@ -3,46 +3,50 @@
 
 
 {% block content %}
-<section>
-    <div class="container">
-        <h1>profile пользователя {{user}}</h1>
+<section class="py-3">
+    <div class="container border border-primary">
+        <h1 class="text-center">Профиль пользователя {{user}}</h1>
+        <div class="d-flex justify-content-between m-5">
+            <div>
+                <img src="{{profile.avatar.url}}" alt="">
+                <div class="results_to_end d-flex justify-content-center py-2">
+                    <a href="{% url 'profile_edit' id_profile %}" class="answer_link btn btn-primary">Редактировать Профиль</a>
+                </div>
+            </div>
 
-        <div class="results_to_end d-flex justify-content-between">
-            <a href="{% url 'profile_edit' id_profile %}" class="answer_link btn btn-primary">Редактировать Профиль</a>
-        </div>
+            <div>
+                <h5>Анкета</h5>
+                <p>name = {{profile.name}}</p>
+                <p>city = {{profile.city}}</p>
+                <p>rank = {{profile.rank}}</p>
+                <p>description = {{profile.description}}</p>
+            </div>
 
-        <div>
-            <img src="{{profile.avatar.url}}" alt="">
-            <h5>Анкета</h5>
-            <p>name = {{profile.name}}</p>
-            <p>city = {{profile.city}}</p>
-            <p>rank = {{profile.rank}}</p>
-            <p>description = {{profile.description}}</p>
-        </div>
-
-        <div>
-            <h5>Баланс</h5>
-            <p>maticAmount = {{balance.maticAmount}}</p>
-            <p>coinsAmount = {{balance.coinsAmount}}</p>
+            <div>
+                <h5>Баланс</h5>
+                <p>maticAmount = {{balance.maticAmount}}</p>
+                <p>coinsAmount = {{balance.coinsAmount}}</p>
+                {{balance_NFT}}
+            </div>
         </div>
     </div>
 </section>
 
-<section>
-    <div class="container">
-            <h5>История операций</h5>
-            {% if not history %}
-            Пока транзакций нет
-            {% else %}
-                {% for h in history %}
-                    <p>{{h}}</p>
-                {% endfor %}
-            {% endif %}
+<section class="py-3">
+    <div class="container border border-primary">
+        <h5>История операций</h5>
+        {% if not history %}
+        Пока транзакций нет
+        {% else %}
+            {% for h in history %}
+                <p>{{h}}</p>
+            {% endfor %}
+        {% endif %}
     </div>
 </section>
 
-<section>
-    <div class="container">
+<section class="py-3">
+    <div class="container border border-primary">
         <h5>Перевести денежку</h5>
         <div>
             <!-- ОПОВЕЩЕНИЯ ДЖАНГИ -->

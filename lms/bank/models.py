@@ -2,8 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 import requests as requests_lib
 
-# TODO rename it for Profile
 class Profile(models.Model):
+    """Дополнительные данные для профиля юзера"""
+
     name = models.CharField(max_length=255, blank=True, null=True)
     city = models.CharField(max_length=255, blank=True, null=True)
     rank = models.CharField(max_length=255, blank=True, null=True)
@@ -12,9 +13,12 @@ class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.user.username} {self.id}'
+        return f'{self.id} of {self.user.username}'
 
+# TODo mayby rename to wallet?
 class Account(models.Model):
+    """Аккаунт с данными для кошелька"""
+
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     publicKey = models.CharField(max_length=255, blank=True, null=True)
     privateKey = models.CharField(max_length=255, blank=True, null=True)
