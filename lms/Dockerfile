@@ -16,7 +16,7 @@ RUN apk update \
 
 # устанавливаем зависимости
 RUN pip install --upgrade pip
-RUN pip install req.txt
+RUN pip install -r lms\req.txt
 
 # копируем содержимое текущей папки в контейнер
 COPY . .
