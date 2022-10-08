@@ -2,10 +2,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic import TemplateView, UpdateView, RedirectView
+
 from ..models import *
 from ..forms import *
 from django.contrib import messages
 from ..logic import *
+from django.contrib.auth.mixins import PermissionRequiredMixin
+
 
 class RedirectMainView(RedirectView):
     """Простой редирект на главную"""
@@ -13,6 +16,7 @@ class RedirectMainView(RedirectView):
     # https://ustimov.org/posts/11/
     def get_redirect_url(self):
         return reverse('main')
+
 
 # class TestView(TemplateView):
 #     template_name = 'bank/django_templates/index.html'
@@ -86,20 +90,24 @@ class ProfileEditView(UpdateView):
     def get_success_url(self):
         return reverse('profile')
 
+
 class PanelView(TemplateView):
     """Страница админа"""
 
     template_name = 'bank/pages/admin_panel.html'
 
-class ActivitiesView(TemplateView):
-    """Страница активностей"""
-
     def get(self, request, *args, **kwargs):
-        if not request.user.is_superuser:
+
+        if Profile.objects.get(user=request.user).status != 'admin':
             return HttpResponseRedirect(reverse("profile"))
         return super().get(self, request, *args, **kwargs)
 
+
+class ActivitiesView(TemplateView):
+    """Страница активностей"""
+
     template_name = 'bank/pages/activities.html'
+
 
 class ShopView(TemplateView):
     """Страница магазина"""

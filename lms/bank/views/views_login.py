@@ -7,6 +7,7 @@ from ..forms import *
 from ..models import Account
 from django.contrib.auth.models import User
 
+
 # //////////////////////////// LOGIN ////////////////////////////////////////
 
 
@@ -25,6 +26,7 @@ class RegisterUser(CreateView):
         login(self.request, user)
         return redirect('profile')
 
+
 class LoginUser(LoginView):
     """Логин"""
 
@@ -33,6 +35,7 @@ class LoginUser(LoginView):
 
     def get_success_url(self):
         return reverse_lazy('profile')
+
 
 def logout_user(request):
     """Разлогиниться"""

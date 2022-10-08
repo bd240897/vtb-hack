@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 import requests as requests_lib
 
+
 class Profile(models.Model):
     """Дополнительные данные для профиля юзера"""
 
@@ -21,17 +22,17 @@ class Profile(models.Model):
     status = models.CharField(verbose_name="Статус ", max_length=32, default="user", blank=True, choices=CHOICES)
 
     def is_user_admin(self):
-        pass
+        return self.status == 'admin'
 
     def is_user_editor(self):
-        pass
+        return self.status == 'editor'
 
     def is_user_boss(self):
-        pass
-
+        return self.status == 'boss'
 
     def __str__(self):
         return f'{self.id} of {self.user.username}'
+
 
 # TODo mayby rename to wallet?
 class Account(models.Model):
@@ -61,6 +62,3 @@ class VtbGroup(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True)
     onwer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='group_onwer')
     users = models.ManyToManyField(User, related_name='group_users')
-
-
-
