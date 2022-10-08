@@ -58,15 +58,15 @@
         Пока транзакций нет
         {% else %}
         {% for h in history %}
-        <div class="element-history">
+        <div class="element-history border border-primary p-2">
             <p>От кого = {{h.from}}</p>
             <p>Кому = {{h.to}}</p>
             <p>Что = {{h.tokenName}}</p>
             <p>Cколько = {{h.value}}</p>
             <p>Статус = {{h.isError}}</p>
-            <button>Next</button> <button>Previous</button>
         </div>
         {% endfor %}
+        <button>Next</button> <button>Previous</button>
         {% endif %}
     </div>
 </section>
@@ -141,6 +141,9 @@
 </section>
 
 <section class="py-3">
+
+
+
     {% if worker.is_user_boss %}
     <div class="container border border-primary">
         <h5>Cоздать группу</h5>
@@ -149,7 +152,14 @@
     {% endif %}
     <div class="container border border-primary">
         <h5>Мои группы</h5>
-
+        {% for key, values in groups.items %}
+            <div class="border border-primary p-2">
+                <h5>{{key}}</h5>
+                {% for user in values %}
+                <span>{{user}}</span>
+                {% endfor %}
+            </div>
+        {% endfor %}
     </div>
 </section>
 

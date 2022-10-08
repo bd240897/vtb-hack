@@ -34,6 +34,16 @@ class ProfileView(PanelAdminMixi, LoginRequiredMixin, TemplateView):
     login_url = 'game_login'
     redirect_field_name = 'main'
 
+    def get_group(self):
+        dict_group = dict()
+        groups = VtbGroup.objects.filter(users=self.request.user)
+        for group in groups:
+            group_name = group.name
+            dict_group[group_name] = []
+            for user in group.users.all():
+                dict_group[group_name].append(user.username)
+        return dict_group
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -62,6 +72,9 @@ class ProfileView(PanelAdminMixi, LoginRequiredMixin, TemplateView):
         context['form_coin'] = TransferCoinForm()
         context['form_NFT'] = TransferNFTForm()
         context['form_generate_NFT'] = GenerateNFTForm()
+
+        # группы
+        context['groups'] = self.get_group()
         return context
 
 class ProfileEditView(PanelAdminMixi, UpdateView):
