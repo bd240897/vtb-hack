@@ -28,3 +28,25 @@ def transfer_rubles(from_private_key, to_public_key, amount):
     response = requests_lib.post(url, data=payload)
     transfer = response.json()
     return transfer
+
+def transfer_matic(from_private_key, to_public_key, amount):
+    url = f'https://hackathon.lsp.team/hk/v1/transfers/matic'
+    payload = {
+        "fromPrivateKey": from_private_key,
+        "toPublicKey": to_public_key,
+        "amount": amount
+        }
+    response = requests_lib.post(url, data=payload)
+    transfer = response.json()
+    return transfer
+
+def transfer_NFT(from_private_key, to_public_key, tokenId):
+    url = f'https://hackathon.lsp.team/hk/v1/transfers/nft'
+    payload = {
+        "fromPrivateKey": from_private_key,
+        "toPublicKey": to_public_key,
+        "tokenId": tokenId
+        }
+    response = requests_lib.post(url, data=payload)
+    transfer = response.json()
+    return transfer

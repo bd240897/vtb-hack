@@ -57,18 +57,12 @@ class ProfileView(LoginRequiredMixin, TemplateView):
             response = transfer_rubles(from_account, to_account, amount)
             messages.success(request, response)
         elif type_coin == 'ruble':
-            messages.error(request, "Метод еще не реализован!!!")
+            response = transfer_matic(from_account, to_account, amount)
+            messages.success(request, response)
         elif type_coin == 'nft':
-            messages.error(request, "Метод еще не реализован!!!")
+            response = transfer_NFT(from_account, to_account, tokenId=amount)
+            messages.success(request, response)
         return super().get(self, request, *args, **kwargs)
-
-    def transfer_matic(self):
-        pass
-
-    def transfer_NFT(self):
-        pass
-
-
 
 
 class ProfileEditView(UpdateView):
