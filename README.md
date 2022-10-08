@@ -9,7 +9,7 @@
 python 3.8, django 4
 
 # Запуск на Windows
-    git clone https://github.com/bd240897/Dmitriibox.git --branch Django_channels
+    git clone https://github.com/bd240897/vtb-hack.git
     python -m venv venv
     venv\Scripts\activate.bat
     pip install -r req.txt
