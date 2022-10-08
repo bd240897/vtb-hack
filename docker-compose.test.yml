@@ -9,7 +9,7 @@ services:
        context: ./lms
        dockerfile: Dockerfile
     # Запускаем сервер gunicorn - вместо python manage.py runserver 0.0.0.0:8000
-    command: gunicorn lms.wsgi.prod:application --bind 0.0.0.0:8000
+    command: gunicorn lms.wsgi_prod:application --bind 0.0.0.0:8000
     # Открываем порт 8000 внутри и снаружи
     ports:
       - 8000:8000
