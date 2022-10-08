@@ -31,6 +31,12 @@ class ProfileView(LoginRequiredMixin, TemplateView):
     login_url = 'game_login'
     redirect_field_name = 'main'
 
+    def dispatch(self, request, *args, **kwargs):
+        if self.request.user.is_superuser:
+            messages.error(request, "У админа нет профиля!")
+            return HttpResponseRedirect(reverse("main"))
+        return super().dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -43,6 +49,7 @@ class ProfileView(LoginRequiredMixin, TemplateView):
         # данные акканута
         account = Account.objects.get(user=self.request.user)
         public_key = account.publicKey
+        private_key = account.privateKey
         print(public_key)
         # TODO delete
         # public_key = "0x0787638C8EdA33712B1FbC2dCF3dfa6603fa0C54"
@@ -54,28 +61,25 @@ class ProfileView(LoginRequiredMixin, TemplateView):
 
         # форма перевода денег
         context['form'] = TransferForm()
+        context['form_NFT'] = TransferNFTForm()
 
         return context
 
     def post(self, request, *args, **kwargs):
         # работа с формой для перевода денег
 
-        # form = TransferForm(request.POST)
-        # from_account = request.POST.get('from_account')
         account = Account.objects.get(user=self.request.user)
-        from_account = account.privateKey
+        private_key = account.privateKey
 
-        to_account = request.POST.get('to_account')
+        to_public_key = request.POST.get('to_account')
         amount = request.POST.get('amount')
         type_coin = request.POST.get('type_coin')
+
         if type_coin == 'matic':
-            response = transfer_rubles(from_account, to_account, amount)
+            response = transfer_rubles(from_private_key=private_key, to_public_key=to_public_key, amount=amount)
             messages.success(request, response)
         elif type_coin == 'ruble':
-            response = transfer_matic(from_account, to_account, amount)
-            messages.success(request, response)
-        elif type_coin == 'nft':
-            response = transfer_NFT(from_account, to_account, tokenId=amount)
+            response = transfer_matic(from_private_key=private_key, to_public_key=to_public_key, amount=amount)
             messages.success(request, response)
         return super().get(self, request, *args, **kwargs)
 
@@ -111,6 +115,20 @@ class ShopView(TemplateView):
 
     template_name = 'bank/pages/shop.html'
 
-# class aaa(View):
-#     account = Account.objects.get(user=self.request.user)
-#     from_account = account.privateKey
+
+class TransferNFTView(View):
+    def post(self, request):
+        form = TransferNFTForm(request.POST)
+        account = Account.objects.get(user=self.request.user)
+        private_key = account.privateKey
+
+        if form.is_valid():
+            to_account = request.POST.get('to_account')
+            amount = request.POST.get('token_id')
+            response = transfer_NFT(from_private_key=private_key, to_public_key=to_account, tokenId=amount)
+            messages.success(request, response)
+            return HttpResponseRedirect(reverse("profile"))
+        else:
+            print(form.errors)
+            messages.error(request, 'Ошбка заполнения формы')
+            return HttpResponseRedirect(reverse("profile"))

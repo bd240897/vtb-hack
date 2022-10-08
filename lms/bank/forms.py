@@ -78,8 +78,7 @@ class TransferForm(forms.Form):
 
 class TransferNFTForm(forms.Form):
     """Перевести для перевода денег"""
-
-    from_account = forms.CharField(label='', widget=forms.HiddenInput(), initial='1cc9bfcb74505f68521d03b7379cb1e92fe12cdc4717f709b517250ca0f9fc44')
+    # from_account = forms.CharField(label='', widget=forms.HiddenInput())
     to_account = forms.CharField(label='', widget=forms.TextInput(), initial='0x15Cc4abzz27647ec9fE70D892E55586074263dF0')
     token_id = forms.CharField(label='', widget=forms.TextInput(), initial='5')
 

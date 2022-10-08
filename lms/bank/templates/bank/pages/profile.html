@@ -75,7 +75,6 @@
                         {{ form.as_p }}
                     </div>
                     <!--TODO пока тут перевод только по открытому ключу-->
-                    TODO пока тут перевод только по открытому ключу!!!!!!!!!!!
                     <div class="enter-game__btn col-auto">
                         <button id="btn-enter-game" type="submit" class="btn btn-primary mb-3">Перевести</button>
                     </div>
@@ -95,26 +94,16 @@
             {% include '../blocks/django_messages.html' %}
 
             <div class="enter-game d-flex flex-column justify-content-center align-items-center py-2">
-                <form class="enter-game__form row g-3" method="post">
-                    <input placeholder="От кого">
-                    <input placeholder="Кому">
-                    <input placeholder="id">
+                <form class="enter-game__form row g-3" method="post" action="{% url 'transfer_NFT' %}">
+                    <div class="enter-game__input col-auto">
+                        {{ form_NFT.as_p }}
+                    </div>
+                    {% csrf_token %}
                     <div class="enter-game__btn col-auto">
                         <button id="btn-enter-game" type="submit" class="btn btn-primary mb-3">Перевести</button>
                     </div>
                 </form>
             </div>
-        </div>
-
-    </div>
-</section>
-
-<section class="py-3">
-    <div class="container border border-primary">
-        <h5>Cписок моих NFT</h5>
-        <div>
-            <p>Name</p>
-            <a>link</a>
         </div>
 
     </div>
