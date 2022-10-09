@@ -3,5 +3,5 @@
 /lms/bank/migrations/
 /lms/users/migrations/
 /lms/polls/migrations/
-
+**/__pycache__/
 
