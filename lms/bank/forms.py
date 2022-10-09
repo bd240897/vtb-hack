@@ -102,6 +102,7 @@ class TransferNFTForm(forms.Form):
                                  initial='0x15Cc4abzz27647ec9fE70D892E55586074263dF0')
     token_id = forms.CharField(label='', widget=forms.TextInput(attrs=token_id_attr), initial='5')
 
+
 class GenerateNFTForm(forms.Form):
     """Перевести для перевода денег"""
     amount_attr = {"type": "text",
@@ -117,40 +118,37 @@ class ProfleEditForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = "__all__"
-        exclude = ('user',)
+        exclude = ('user', 'status')
 
+        name_attrs = {"type": "text",
+                      "class": "form-control",
+                      "placeholder": "Ваше имя", }
 
+        city_attrs = {"type": "text",
+                      "class": "form-control",
+                      "placeholder": "Ваш город", }
 
-# lass
-# CreateGroupForm(forms.ModelForm):
-# """Форма редактора профиля"""
-# owner = forms.ChoiceField(choices=[])
-#
-#
-# class Meta:
-#     name_attrs = {"type": "text",
-#                   "class": "form-control text-center",
-#                   "placeholder": "Название группы", }
-#
-#     model = VtbGroup
-#     fields = ('name', 'owner')
-#     widgets = {
-#         'name': forms.TextInput(attrs=name_attrs)
-#     }
-#
-#
-# # def clean_owner(self):
-# #     data = self.cleaned_data['owner']
-# #     self.cleaned_data['owner'] = User.objects.get(id=self.cleaned_data['owner'])
-# #     return data
-#
-# def __init__(self, *args, **kwargs):
-#     super().__init__(*args, **kwargs)
-#     self.fields['owner'].choices = [(User.objects.get(pk=x.id), x.username) for x in User.objects.all()]
-#
-#
+        rank_attrs = {"type": "text",
+                      "class": "form-control",
+                      "placeholder": "Ваша должность", }
+
+        description_attrs = {"type": "text",
+                             "class": "form-control",
+                             "placeholder": "О себе",
+                             "cols": '60',
+                             "rows": "10"}
+
+        widgets = {
+            'name': forms.TextInput(attrs=name_attrs),
+            'city': forms.TextInput(attrs=city_attrs),
+            'rank': forms.TextInput(attrs=rank_attrs),
+            'description': forms.Textarea(attrs=description_attrs),
+        }
+
 
 from django.contrib.auth.models import User
+
+
 class CreateGroupForm(forms.Form):
     name = forms.CharField()
     owner = forms.ChoiceField(choices=[])
@@ -168,10 +166,3 @@ class AddUserToGroupForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.fields['user'].choices = [(x.pk, x.username) for x in User.objects.all()]
         self.fields['group'].choices = [(x.pk, x.name) for x in VtbGroup.objects.all()]
-
-
-
-
-
-
-

@@ -13,155 +13,265 @@
 </section>
 
 <section class="py-3">
-    <div class="container border border-primary">
-        <h1 class="text-center">Профиль пользователя {{user}}</h1>
-        <div class="d-flex justify-content-between m-5">
-            <div>
-                <img src="{{profile.avatar.url}}" alt="">
+    <div class="container border border-2 border-primary rounded-3">
+        <h1 class="text-center text-primary py-3">Ваш профиль</h1>
+        <div class="d-flex justify-content-between mx-5 mt-2 mb-5">
+            <div class="">
+                <img class="border border-2 rounded-circle"src="{{profile.avatar.url}}" alt="">
                 <div class="results_to_end d-flex justify-content-center py-2">
                     <a href="{% url 'profile_edit' id_profile %}" class="answer_link btn btn-primary">Редактировать Профиль</a>
                 </div>
             </div>
 
-            <div>
-                <h5>Анкета</h5>
-                <p>name = {{profile.name}}</p>
-                <p>city = {{profile.city}}</p>
-                <p>rank = {{profile.rank}}</p>
-                <p>description = {{profile.description}}</p>
+            <div class="p-4 border border-2 border-primary rounded-3 col-3">
+                <h5 class="text-center m-3">Анкета</h5>
+                {% if profile.name %}
+                    <p>Имя: {{profile.name}}</p>
+                {% endif %}
+                {% if profile.city %}
+                    <p>Город: {{profile.city}}</p>
+                {% endif %}
+                {% if profile.description %}
+                    <p>Должность: {{profile.description}}</p>
+                {% endif %}
+                {% if not profile.name and not profile.city and not profile.description %}
+                    <p>Данные профиля не указаны</p>
+                {% endif %}
             </div>
 
-            <div>
-                <h5>Баланс</h5>
-                <p>maticAmount = {{balance.maticAmount}}</p>
-                <p>coinsAmount = {{balance.coinsAmount}}</p>
+            <div class="p-4 border border-2 border-primary rounded-3 col-3">
+                <h5 class="text-center m-3">Кошелёк</h5>
+                <div class="mx-auto my-4 col-5">
+                    <img src="https://img.icons8.com/pastel-glyph/100/000000/coin-wallet--v1.png"/>
+                </div>
+                <h2 class="text-center text-primary">{{balance.maticAmount}} ₿</h2>
+
 
                 <div class="py-3">
                     {% for NFT_uri in balance_NFT %}
-                    <p>Для uri = {{NFT_uri.uri}}</p>
+                    <!--                    <p>Для uri = {{NFT_uri.uri}}</p>-->
                     <p>Вы владеете NFT с номерами:</p>
-                    {% for NFT_token in NFT_uri.tokens %}
-                    {{NFT_token}}
-                    {% endfor %}
+                        {% for NFT_token in NFT_uri.tokens %}
+                            {{NFT_token}}
+                        {% endfor %}
                     {% endfor %}
                 </div>
 
             </div>
+
         </div>
     </div>
 </section>
 
-<section class="py-3">
-    <div class="container border border-primary">
-        <h5>История операций</h5>
-        {% if not history %}
-        Пока транзакций нет
-        {% else %}
-        {% for h in history %}
-        <div class="element-history border border-primary p-2">
-            <p>От кого = {{h.from}}</p>
-            <p>Кому = {{h.to}}</p>
-            <p>Что = {{h.tokenName}}</p>
-            <p>Cколько = {{h.value}}</p>
-            <p>Статус = {{h.isError}}</p>
+<section class="row pb-5 mb-5">
+    <center>
+        <ul class="nav nav-pills mb-3 col-8 mx-auto" id="pills-tab" role="tablist">
+            <li class="nav-item col mx-auto" role="presentation">
+                <button class="nav-link active" id="pills-history-tab" data-bs-toggle="pill" data-bs-target="#pills-history" type="button" role="tab" aria-controls="pills-history" aria-selected="true">История</button>
+            </li>
+            <li class="nav-item col mx-auto" role="presentation">
+                <button class="nav-link" id="pills-coins-tab" data-bs-toggle="pill" data-bs-target="#pills-coins" type="button" role="tab" aria-controls="pills-coins" aria-selected="false">Перевод коинов</button>
+            </li>
+            <li class="nav-item col mx-auto" role="presentation">
+                <button class="nav-link" id="pills-nft-tab" data-bs-toggle="pill" data-bs-target="#pills-nft" type="button" role="tab" aria-controls="pills-nft" aria-selected="false">Перевод NFT</button>
+            </li>
+<!--            <li class="nav-item col mx-auto" role="presentation">-->
+<!--                <button class="nav-link" id="pills-collection-tab" data-bs-toggle="pill" data-bs-target="#pills-collection" type="button" role="tab" aria-controls="pills-collection" aria-selected="false">Колекция NFT</button>-->
+<!--            </li>-->
+            <li class="nav-item col mx-auto" role="presentation">
+                <button class="nav-link" id="pills-groups-tab" data-bs-toggle="pill" data-bs-target="#pills-groups" type="button" role="tab" aria-controls="pills-groups" aria-selected="false">Группы</button>
+            </li>
+        </ul>
+    </center>
+
+    <div class="tab-content" id="pills-tabContent">
+
+        <div class="tab-pane fade show active" id="pills-history" role="tabpanel" aria-labelledby="pills-history-tab">
+            <section class="">
+                <div class="container border border-2 border-primary rounded-3">
+                    <h4 class="text-center pt-4">История операций</h5>
+                        {% if not history %}
+                        <div class="d-flex justify-content-between border-bottom mb-2">
+                            <div class="col-10">
+                                <h4>@lekuzzz</h4>
+                                <h6>Алексей</h6>
+                            </div>
+                            <div class="mx-auto"></div>
+                            <div class="row col-2">
+                                <h3 class="text-center text-primary mt-3">+10 ₿</h3>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between border-bottom mb-2">
+                            <div class="col-10">
+                                <h4>@DmitriiBorisov</h4>
+                                <h6>Дмитрий</h6>
+                            </div>
+                            <div class="mx-auto"></div>
+                            <div class="row col-2">
+                                <h3 class="text-center text-primary mt-3">+12 ₿</h3>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between border-bottom mb-2">
+                            <div class="col-10">
+                                <h4>@kishikmaxim</h4>
+                                <h6>Максим</h6>
+                            </div>
+                            <div class="mx-auto"></div>
+                            <div class="row col-2">
+                                <h3 class="text-center text-primary mt-3">+9 ₿</h3>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between border-bottom mb-2">
+                            <div class="col-10">
+                                <h4>@raulgasanov</h4>
+                                <h6>Рауль</h6>
+                            </div>
+                            <div class="mx-auto"></div>
+                            <div class="row col-2">
+                                <h3 class="text-center text-primary mt-3">+1 ₿</h3>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between border-bottom mb-2">
+                            <div class="col-10">
+                                <h4>@polinashamsieva</h4>
+                                <h6>Полина</h6>
+                            </div>
+                            <div class="mx-auto"></div>
+                            <div class="row col-2">
+                                <h3 class="text-center text-primary mt-3">+15 ₿</h3>
+                            </div>
+                        </div>
+                        {% else %}
+
+                        {% for h in history %}
+
+                        <div class="d-flex justify-content-between border-bottom mb-2">
+                            <div class="col-10">
+                                <h4>@{{h.from}}</h4>
+                                <h6>{{h.to}}</h6>
+                                {% if h.isError == 1 %}
+                                <p>Статус - Ошибка</p>
+                                {% else %}
+                                <p>Статус - Успешно</p>
+                                {% endif %}
+                            </div>
+                            <div class="mx-auto"></div>
+                            <div class="row col-2">
+                                <h3 class="text-center text-primary mt-3">+9 {{h.tokenName}}</h3>
+                            </div>
+                        </div>
+
+                        {% endfor %}
+
+                        <nav aria-label="Пример навигации по страницам">
+                            <ul class="pagination">
+                                <li class="page-item"><a class="page-link" href="#">Предыдущая</a></li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Следующая</a></li>
+                            </ul>
+                        </nav>
+                        {% endif %}
+                </div>
+            </section>
         </div>
-        {% endfor %}
-        <button>Next</button> <button>Previous</button>
-        {% endif %}
-    </div>
-</section>
 
-<section class="py-3">
-    <div class="container border border-primary">
-        <h5>Перевести денежку</h5>
-        <div>
-            <!-- ОПОВЕЩЕНИЯ ДЖАНГИ -->
-            {% include '../blocks/django_messages.html' %}
+        <div class="tab-pane fade" id="pills-coins" role="tabpanel" aria-labelledby="pills-coins-tab">
+            <section class="">
+                <div class="container border border-2 border-primary rounded-3">
 
-            <div class="enter-game d-flex flex-column justify-content-center align-items-center py-2">
-                <form class="enter-game__form row g-3" method="post" action="{% url 'transfer_coin' %}">
-                    <div class="enter-game__input col-auto">
-                        {{ form_coin.as_p }}
+                    <div>
+                        <!-- ОПОВЕЩЕНИЯ ДЖАНГИ -->
+                        {% include '../blocks/django_messages.html' %}
+
+                        <div class="enter-game d-flex flex-column justify-content-center align-items-center my-4">
+                            <form class="enter-game__form row g-3" method="post" action="{% url 'transfer_coin' %}">
+                                {{ form_coin.type_coin }}
+                                {{ form_coin.to_account }}
+                                {{ form_coin.amount_id }}
+                                {% csrf_token %}
+                                <div class="enter-game__btn col-auto">
+                                    <button id="btn-enter-game" type="submit" class="btn btn-primary mb-3">Перевести</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <div class="enter-game__btn col-auto">
-                        <button id="btn-enter-game" type="submit" class="btn btn-primary mb-3">Перевести</button>
-                    </div>
-                    {% csrf_token %}
-                </form>
-            </div>
+
+                </div>
+            </section>
         </div>
 
-    </div>
-</section>
+        <div class="tab-pane fade" id="pills-nft" role="tabpanel" aria-labelledby="pills-nft-tab">
+            <section class="">
+                <div class="container border border-2 border-primary rounded-3">
 
-<!--<section class="py-3">-->
-<!--    <div class="container border border-primary">-->
-<!--        <h5>Сгенерировать NFT</h5>-->
-<!--        <div>-->
-<!--            &lt;!&ndash; ОПОВЕЩЕНИЯ ДЖАНГИ &ndash;&gt;-->
-<!--            {% include '../blocks/django_messages.html' %}-->
+                    <div>
+                        <!-- ОПОВЕЩЕНИЯ ДЖАНГИ -->
+                        {% include '../blocks/django_messages.html' %}
 
-<!--            <div class="enter-game d-flex flex-column justify-content-center align-items-center py-2">-->
-<!--                <form class="enter-game__form row g-3" method="post" action="{% url 'generate_NFT' %}">-->
-<!--                    <div class="enter-game__input col-auto">-->
-<!--                        {{ form_generate_NFT.as_p }}-->
+                        <div class="enter-game d-flex flex-column justify-content-center align-items-center my-4">
+                            <form class="enter-game__form row g-3" method="post" action="{% url 'transfer_NFT' %}">
+                                {{ form_NFT.to_account }}
+                                {{ form_NFT.token_id }}
+                                {% csrf_token %}
+                                <div class="enter-game__btn col-auto">
+                                    <button id="btn-enter-game" type="submit" class="btn btn-primary mb-3">Перевести</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+
+<!--        <div class="tab-pane fade" id="pills-collection" role="tabpanel" aria-labelledby="pills-collection-tab">-->
+<!--            <section class="">-->
+<!--                <div class="container border border-2 border-primary rounded-3">-->
+
+<!--                    <div>-->
+<!--                        <p>Name</p>-->
+<!--                        <a>link</a>-->
 <!--                    </div>-->
-<!--                    {% csrf_token %}-->
-<!--                    <div class="enter-game__btn col-auto">-->
-<!--                        <button id="btn-enter-game" type="submit" class="btn btn-primary mb-3">Перевести</button>-->
-<!--                    </div>-->
-<!--                </form>-->
-<!--            </div>-->
+
+<!--                </div>-->
+<!--            </section>-->
 <!--        </div>-->
 
-<!--    </div>-->
-<!--</section>-->
+        <div class="tab-pane fade" id="pills-groups" role="tabpanel" aria-labelledby="pills-contact-tab">
+            <section class="">
+                {% if worker.is_user_boss %}
+                <div class="container border border-2 border-primary rounded-3">
 
-<section class="py-3">
-    <div class="container border border-primary">
-        <h5>Перевести NFT</h5>
-        <div>
-            <!-- ОПОВЕЩЕНИЯ ДЖАНГИ -->
-            {% include '../blocks/django_messages.html' %}
 
-            <div class="enter-game d-flex flex-column justify-content-center align-items-center py-2">
-                <form class="enter-game__form row g-3" method="post" action="{% url 'transfer_NFT' %}">
-                    <div class="enter-game__input col-auto">
-                        {{ form_NFT.as_p }}
+                </div>
+                {% endif %}
+                <div class="container border border-2 border- rounded-3">
+                    <h3 class="text-center py-3">Мои группы</h3>
+                    {% for key, values in groups.items %}
+                    <div class="border border-primary p-2 m-2">
+                        <h5 class="text-center py-3">{{key}}</h5>
+                        <ul class="list-group">
+                            {% for user in values %}
+                            <li class="list-group-item">{{user}}</li>
+                            {% endfor %}
+                        </ul>
                     </div>
-                    {% csrf_token %}
-                    <div class="enter-game__btn col-auto">
-                        <button id="btn-enter-game" type="submit" class="btn btn-primary mb-3">Перевести</button>
-                    </div>
-                </form>
-            </div>
+                    {% endfor %}
+                </div>
+            </section>
         </div>
 
     </div>
 </section>
 
-<section class="py-3">
 
 
-
-    {% if worker.is_user_boss %}
-    <div class="container border border-primary">
-        <h5>Cоздать группу</h5>
-
-    </div>
-    {% endif %}
-    <div class="container border border-primary">
-        <h5>Мои группы</h5>
-        {% for key, values in groups.items %}
-            <div class="border border-primary p-2">
-                <h5>{{key}}</h5>
-                {% for user in values %}
-                <span>{{user}}</span>
-                {% endfor %}
-            </div>
-        {% endfor %}
-    </div>
-</section>
 
 <style>
     img{

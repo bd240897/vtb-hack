@@ -23,5 +23,6 @@ RUN pip install -r req.txt
 #RUN python manage.py migrate
 
 RUN chmod +x ./entrypoint.sh
-COPY ./entrypoint.sh ./usr/src/lms
+COPY ./entrypoint.sh ./home/project/lms
 ENTRYPOINT ["./entrypoint.sh"]
+
