@@ -33,13 +33,7 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-c
     docker-compose --version // status
 
 
-## 3. Запуск проекта 
-
-    git clone https://github.com/bd240897/vtb-hack.git
-    cd ./vtb-hack/
-    docker-compose -f docker-compose.yml up --build -d
-
-# Запуск через Docker
+## 3. Запуск через Docker
     sudo git clone https://github.com/bd240897/vtb-hack.git
     cd ./vtb-hack/
 
