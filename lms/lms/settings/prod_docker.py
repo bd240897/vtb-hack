@@ -12,7 +12,7 @@ ALLOWED_HOSTS = os_environ.get('ALLOWED_HOSTS').split(' ')
 # Database DOCKER
 DATABASES = {
     'default': {
-        'ENGINE': os_environ.get('POSTGRES_ENGINE', 'django.db.backends.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', #os_environ.get('POSTGRES_ENGINE', 'django.db.backends.sqlite3'),
         'NAME': os_environ.get('POSTGRES_DB', str(BASE_DIR / "db.sqlite3"),),
         'USER': os_environ.get('POSTGRES_USER', 'user'),
         'PASSWORD': os_environ.get('POSTGRES_PASSWORD', 'password'),
