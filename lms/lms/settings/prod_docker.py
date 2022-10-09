@@ -7,7 +7,7 @@ SECRET_KEY = os_environ.get('SECRET_KEY', 'django-insecure-%gmzr)1n3^6m=0w^0y@^5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os_environ.get('DEBUG', False,)
 
-ALLOWED_HOSTS = ['127.0.0.1', 'bad-philosopher.ru', 'www.bad-philosopher.ru', "45.67.58.152"]
+ALLOWED_HOSTS = os_environ.get('ALLOWED_HOSTS').split(' ')
 
 # Database DOCKER
 DATABASES = {
