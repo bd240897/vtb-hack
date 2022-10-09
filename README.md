@@ -33,14 +33,14 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-c
     docker-compose --version // status
 
 
-## 3. Запуск через Docker
+## 3. Запуск через Docker-compose
     sudo git clone https://github.com/bd240897/vtb-hack.git
     cd ./vtb-hack/
 
     // запуск dev-server+SQLite (Debug=True, hosts="*")
     sudo docker-compose up -d
 
-    // запуск unicorn+Postgres (Debug=True)
+    // запуск unicorn+Postgres (Debug=True, hosts="*")
     sudo docker-compose -f docker-compose.test.yml up --build -d
 
     // запуск nginx+unicorn+Postgres (Debug=False, hosts="one")
