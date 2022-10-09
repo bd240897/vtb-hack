@@ -23,7 +23,6 @@ class RegisterUserForm(UserCreationForm):
     password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs=param_password1))
     password2 = forms.CharField(label='Повтор пароля', widget=forms.PasswordInput(attrs=param_password2))
 
-
 class LoginUserForm(AuthenticationForm):
     """Форма логина"""
 
@@ -37,7 +36,6 @@ class LoginUserForm(AuthenticationForm):
 
     username = forms.CharField(label='Логин', widget=forms.TextInput(attrs=parm_username))
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs=param_password))
-
 
 class TransferCoinForm(forms.Form):
     """Перевести для перевода денег"""
@@ -99,7 +97,6 @@ class ProfleEditForm(forms.ModelForm):
         city_attrs = {"type": "text",
                       "class": "form-control",
                       "placeholder": "Ваш город", }
-
         rank_attrs = {"type": "text",
                       "class": "form-control",
                       "placeholder": "Ваша должность", }
@@ -116,7 +113,6 @@ class ProfleEditForm(forms.ModelForm):
             'rank': forms.TextInput(attrs=rank_attrs),
             'description': forms.Textarea(attrs=description_attrs),
         }
-
 
 from django.contrib.auth.models import User
 
@@ -138,3 +134,10 @@ class AddUserToGroupForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.fields['user'].choices = [(x.pk, x.username) for x in User.objects.all()]
         self.fields['group'].choices = [(x.pk, x.name) for x in VtbGroup.objects.all()]
+
+
+
+
+
+
+
