@@ -102,6 +102,7 @@ class TransferNFTForm(forms.Form):
                                  initial='0x15Cc4abzz27647ec9fE70D892E55586074263dF0')
     token_id = forms.CharField(label='', widget=forms.TextInput(attrs=token_id_attr), initial='5')
 
+
 class GenerateNFTForm(forms.Form):
     """Перевести для перевода денег"""
     amount_attr = {"type": "text",
@@ -118,7 +119,6 @@ class ProfleEditForm(forms.ModelForm):
         model = Profile
         fields = "__all__"
         exclude = ('user',)
-
 
 
 # lass
@@ -151,6 +151,8 @@ class ProfleEditForm(forms.ModelForm):
 #
 
 from django.contrib.auth.models import User
+
+
 class CreateGroupForm(forms.Form):
     name = forms.CharField()
     owner = forms.ChoiceField(choices=[])
@@ -168,10 +170,3 @@ class AddUserToGroupForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.fields['user'].choices = [(x.pk, x.username) for x in User.objects.all()]
         self.fields['group'].choices = [(x.pk, x.name) for x in VtbGroup.objects.all()]
-
-
-
-
-
-
-

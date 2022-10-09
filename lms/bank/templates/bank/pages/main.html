@@ -38,4 +38,35 @@
 
     </div>
 </section>
+
+<section class="py-3">
+<h2>Рейтинг</h2>
+
+
+        {% for key, values in groups.items %}
+            <div class="">
+            <caption>{{key}}</caption>
+            <table class="table table-striped" id="table">
+
+            <thead>
+                <tr>
+                    <th scope="col" >user</th>
+                    <th scope="col">score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in values %}
+                    <tr>
+                    <td>{{user.0}}</td><td>{{user.1}}</td>
+                    </tr>
+                {% endfor %}
+
+                {% endfor %}
+            </tbody>
+            </table>
+            </div>
+</section>
+
+
+
 {% endblock %}
