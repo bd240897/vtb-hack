@@ -4,3 +4,4 @@
 /users/bank/migrations/
 /lms/users/migrations/
 /venv/
+/lms/polls/templates/
