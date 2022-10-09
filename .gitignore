@@ -1,7 +1,7 @@
-./venv
+/venv/
 /lms/db.sqlite3
 /lms/bank/migrations/
-/users/bank/migrations/
 /lms/users/migrations/
-/venv/
-/lms/polls/templates/
+/lms/polls/migrations/
+
+
