@@ -1,5 +1,6 @@
 {% extends 'bank/base.html' %}
 
+
 {% block content %}
 
 <h1>main</h1>
@@ -39,6 +40,7 @@
     </div>
 </section>
 
+    {% if request.user.is_authenticated %}
 <section class="py-3">
 <h2>Рейтинг</h2>
 
@@ -66,7 +68,7 @@
             </table>
             </div>
 </section>
-
+    {% endif %}
 
 
 {% endblock %}

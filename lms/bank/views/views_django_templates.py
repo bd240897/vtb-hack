@@ -29,6 +29,8 @@ class MainView(TemplateView):
     template_name = 'bank/pages/main.html'
 
     def get_group(self):
+        if not self.request.user.is_authenticated:
+            return dict()
         dict_group = dict()
         groups = VtbGroup.objects.filter(users=self.request.user)
         print(groups)
