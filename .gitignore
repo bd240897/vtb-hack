@@ -1,0 +1,8 @@
+/venv/pyvenv.cfg
+/venv/
+/lms/db.sqlite3
+/lms/bank/migrations/
+/lms/users/migrations/
+/lms/polls/migrations/
+**/__pycache__/
+/.idea/
