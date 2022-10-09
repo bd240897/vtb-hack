@@ -39,10 +39,29 @@ docker-compose --version // status
     cd ./vtb-hack/
     docker-compose -f docker-compose.yml up --build -d
 
-# 4. another 
+# Запуск через Docker
+    sudo apt update
+    sudo apt install apt-transport-https ca-certificates curl software-properties-common
+    sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+    sudo apt-cache policy docker-ce
+    sudo apt install docker-ce
+    sudo git clone https://github.com/bd240897/vtb-hack.git
+    cd ./vtb-hack/
 
-    sudo -i // войти под админа
-    password // сменить пароль админу
+    // запуск dev-server+SQLite (Debug=True, hosts="*")
+    sudo docker-compose up -d
+
+    // запуск unicorn+Postgres (Debug=True)
+    sudo docker-compose -f docker-compose.test.yml up --build -d
+
+    // запуск nginx+unicorn+Postgres (Debug=False, hosts="one")
+    sudo docker-compose -f docker-compose.perprod.yml up --build -d
+
+## Доска с идеями на миро
+    https://miro.com/app/board/uXjVPP7sbA0=/?share_link_id=9790951654700
+
+
 
 # Запуск на Windows
     git clone https://github.com/bd240897/vtb-hack.git
@@ -62,5 +81,19 @@ docker-compose --version // status
 ## Верстка проекта в figma
     https://www.figma.com/file/TgSW8pv0zzggm4yk43SHhd/ВТБ?node-id=0%3A1
 
-## Доска с идеями на миро
-    https://miro.com/app/board/uXjVPP7sbA0=/?share_link_id=9790951654700
+# МОИ ЗАМЕТКИ
+
+    sudo -i // войти под админа
+    password // сменить пароль админу
+
+    указать DJANGO_SETTINGS_MODULE в env чтоб сменить настрокий (указать тольк в wsgi недостаточно!!!!)
+    
+    чтоб удалить volumes (одного недостаточно)
+    sudo docker system prune
+    sudo docker volume prune
+
+    запуск докера в фоне с указанием файла
+    sudo docker-compose -f docker-compose.test.yml up --build -d
+
+    клонировать конкретную ветку git
+    sudo git clone https://github.com/bd240897/vtb-hack.git --branch develop

@@ -15,8 +15,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'bank.apps.BankConfig',
-    'users.apps.UsersConfig',
-    # 'panel.apps.PanelConfig',
+    'polls.apps.PollsConfig',
 ]
 
 MIDDLEWARE = [

@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
 from django.views.generic import TemplateView, UpdateView, RedirectView, CreateView, FormView
@@ -11,6 +12,10 @@ from ..models import *
 from ..forms import *
 from ..logic import *
 
+############## ИСПОРТ ИЗ ДРУГОГО МОДУЛЯ ##############
+from polls.views import *
+
+
 class RedirectMainView(RedirectView):
     """Простой редирект на главную"""
 
@@ -18,16 +23,12 @@ class RedirectMainView(RedirectView):
     def get_redirect_url(self):
         return reverse('main')
 
-# class TestView(TemplateView):
-#     template_name = 'bank/django_templates/index.html'
-
 class MainView(TemplateView):
     """Главная страница"""
 
     template_name = 'bank/pages/main.html'
 
-
-class ProfileView(PanelAdminMixi, LoginRequiredMixin, TemplateView):
+class ProfileView(PanelAdminMixin, LoginRequiredMixin, TemplateView):
     """Профиль пользователя"""
 
     template_name = 'bank/pages/profile.html'
@@ -37,6 +38,7 @@ class ProfileView(PanelAdminMixi, LoginRequiredMixin, TemplateView):
     def get_group(self):
         dict_group = dict()
         groups = VtbGroup.objects.filter(users=self.request.user)
+        print(groups)
         for group in groups:
             group_name = group.name
             dict_group[group_name] = []
@@ -77,7 +79,7 @@ class ProfileView(PanelAdminMixi, LoginRequiredMixin, TemplateView):
         context['groups'] = self.get_group()
         return context
 
-class ProfileEditView(PanelAdminMixi, UpdateView):
+class ProfileEditView(PanelAdminMixin, UpdateView):
     """Редактирование профиля"""
 
     # https://stackoverflow.com/questions/52263711/generic-view-updateview-from-django-tutorial-does-not-save-files-or-images
@@ -88,7 +90,8 @@ class ProfileEditView(PanelAdminMixi, UpdateView):
     def get_success_url(self):
         return reverse('profile')
 
-class ActivitiesView(PanelAdminMixi, TemplateView):
+
+class ActivitiesView(PollsListView, PanelAdminMixin, TemplateView):
     """Страница активностей"""
 
     def get(self, request, *args, **kwargs):
@@ -96,7 +99,39 @@ class ActivitiesView(PanelAdminMixi, TemplateView):
 
     template_name = 'bank/pages/activities.html'
 
-class ShopView(PanelAdminMixi, TemplateView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['groups'] = self.get_leaderbord()
+        return context
+
+    def get_leaderbord(self):
+        """Получение лидерборда по группам"""
+
+        if not self.request.user.is_authenticated:
+            return dict()
+        dict_group = dict()
+        groups = VtbGroup.objects.filter(users=self.request.user)
+
+        for group in groups:
+            group_name = group.name
+            dict_group[group_name] = []
+            for user in group.users.all():
+
+                account = Account.objects.get(user=self.request.user)
+                public_key = account.publicKey
+                balance = get_balance(public_key=public_key)
+
+                dict_group[group_name].append((user.username, balance['maticAmount']))
+            dict_group[group_name].sort(key=lambda x: str(x[1]), reverse=True)
+        return dict_group
+
+
+class ActivitiesPollView(PanelAdminMixin, PollView):
+        """Работа с конкретным опросом по id (из модуля poll)"""
+
+        template_name = "bank/pages/activities_poll.html"
+
+class ShopView(PanelAdminMixin, TemplateView):
     """Страница магазина"""
 
     template_name = 'bank/pages/shop.html'
@@ -124,6 +159,7 @@ class GenerateNFTView(View):
         else:
             messages.error(request, 'Ошибка заполнения формы')
             return HttpResponseRedirect(reverse(self.redirect_url_name))
+
 
 class TransferCoinView(View):
     """Перевод coin"""
@@ -176,9 +212,10 @@ class TransferNFTView(View):
             messages.error(request, 'Ошибка заполнения формы')
             return HttpResponseRedirect(reverse(self.redirect_url_name))
 
+
 ############### PANEL ADMIN ###################
 
-class PanelView(PanelAdminMixi, TemplateView):
+class PanelView(PanelAdminMixin, TemplateView):
     """Страница админа"""
 
     template_name = 'bank/pages/admin_panel.html'
@@ -210,6 +247,7 @@ class PanelView(PanelAdminMixi, TemplateView):
         context['form_group_add'] = AddUserToGroupForm()
         return context
 
+
 class CreateGroupView(View):
     """Перевод NFT"""
 
@@ -224,6 +262,7 @@ class CreateGroupView(View):
         else:
             messages.error(request, 'Ошибка заполнения формы')
             return HttpResponseRedirect(reverse("panel"))
+
 
 class AddUserToGroupView(View):
     """Перевод NFT"""
@@ -246,9 +285,11 @@ class GenerateNFTAdminView(GenerateNFTView):
     """Генерация NFT"""
     redirect_url_name = "panel"
 
+
 class TransferNFTAdminView(TransferNFTView):
     """Перевод NFT"""
     redirect_url_name = "panel"
+
 
 class TransferCoinAdminView(TransferCoinView):
     """Перевод coin"""

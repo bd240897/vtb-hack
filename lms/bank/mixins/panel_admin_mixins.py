@@ -1,6 +1,6 @@
 from ..models import *
 
-class PanelAdminMixi():
+class PanelAdminMixin():
     """Cоздадим админу профиль с кошельком"""
 
     def dispatch(self, request, *args, **kwargs):

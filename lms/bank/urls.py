@@ -2,7 +2,8 @@
 from django.urls import path, include, re_path
 from .views.views import RedirectMainView, MainView, ProfileView, ProfileEditView, ActivitiesView, ShopView, PanelView, GenerateNFTView,\
 TransferNFTView, TransferCoinView, CreateGroupView, AddUserToGroupView, RegisterUser, LoginUser, logout_user
-from .views.views_django_templates import GenerateNFTAdminView, TransferNFTAdminView, TransferCoinAdminView
+from .views.views_django_templates import GenerateNFTAdminView, TransferNFTAdminView, TransferCoinAdminView, \
+    ActivitiesPollView
 
 urlpatterns = [
     # редирект на главную страницу
@@ -26,6 +27,8 @@ urlpatterns = [
     path('group/create/', CreateGroupView.as_view(), name='group_create'),
     path('group/add/', AddUserToGroupView.as_view(), name='group_add'),
 
+    ######## ОПРОС ##########
+    path("activities/poll/<int:poll_id>/", ActivitiesPollView.as_view(), name="activities_poll"),
 ]
 
 urlpatterns_login = [
