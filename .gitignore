@@ -3,4 +3,6 @@
 /lms/bank/migrations/
 /users/bank/migrations/
 /lms/users/migrations/
+/lms/polls/migrations/
 /venv/
+.idea
