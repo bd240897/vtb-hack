@@ -118,8 +118,10 @@ from django.contrib.auth.models import User
 
 
 class CreateGroupForm(forms.Form):
+    """ Создание группы """
+
     name = forms.CharField()
-    owner = forms.ChoiceField(choices=[]) # , widget=forms.Select(attrs={"class": "form-select"})
+    owner = forms.ChoiceField(choices=[], widget=forms.Select(attrs={'class': 'form-select'}))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -127,8 +129,10 @@ class CreateGroupForm(forms.Form):
 
 
 class AddUserToGroupForm(forms.Form):
-    user = forms.ChoiceField(choices=[])
-    group = forms.ChoiceField(choices=[])
+    """ Добавление пользователя к группе """
+
+    user = forms.ChoiceField(choices=[], widget=forms.Select(attrs={'class': 'form-select'}))
+    group = forms.ChoiceField(choices=[], widget=forms.Select(attrs={'class': 'form-select'}))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

@@ -1,7 +1,9 @@
 #!/bin/sh
 
 python manage.py migrate
+python manage.py makemigrations
 python manage.py makemigrations bank
+python manage.py makemigrations polls
 python manage.py migrate
 python manage.py collectstatic
 
