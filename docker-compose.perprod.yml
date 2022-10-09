@@ -33,6 +33,17 @@ services:
     env_file:
       - ./.env.prod
 
+  nginx:
+    build: ./nginx
+    # Подключаем статические и медиа файлы
+    volumes:
+      - static_volume:/home/project/lms/static
+      - media_volume:/home/project/lms/media
+    ports:
+      - 80:80
+    depends_on:
+      - web
+
 volumes:
   postgres_volume:
   static_volume:
