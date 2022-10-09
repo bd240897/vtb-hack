@@ -1,4 +1,11 @@
 # О проекте vtv-hack
+https://moretech.vtb.ru/
+
+Хакатон MORE.teach 4.0 
+
+Команда "Win+ners"
+
+Даты 07.10.22 - 07.10.22
 
 Трек - Web
 
@@ -46,11 +53,6 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-c
     // запуск nginx+unicorn+Postgres (Debug=False, hosts="one")
     sudo docker-compose -f docker-compose.perprod.yml up --build -d
 
-## Доска с идеями на миро
-    https://miro.com/app/board/uXjVPP7sbA0=/?share_link_id=9790951654700
-
-
-
 # Запуск на Windows
     git clone https://github.com/bd240897/vtb-hack.git
     python -m venv venv
@@ -68,6 +70,10 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-c
 
 ## Верстка проекта в figma
     https://www.figma.com/file/TgSW8pv0zzggm4yk43SHhd/ВТБ?node-id=0%3A1
+
+## Доска с идеями на миро
+    https://miro.com/app/board/uXjVPP7sbA0=/?share_link_id=9790951654700
+
 
 # МОИ ЗАМЕТКИ
 
