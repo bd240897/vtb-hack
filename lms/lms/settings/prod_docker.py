@@ -13,7 +13,7 @@ ALLOWED_HOSTS = ['127.0.0.1', 'bad-philosopher.ru', 'www.bad-philosopher.ru', "4
 DATABASES = {
     'default': {
         'ENGINE': os_environ.get('POSTGRES_ENGINE', 'django.db.backends.sqlite3'),
-        'NAME': os_environ.get('POSTGRES_DB', str(BASE_DIR.path('db.sqlite3')),),
+        'NAME': os_environ.get('POSTGRES_DB', str(BASE_DIR / "db.sqlite3"),),
         'USER': os_environ.get('POSTGRES_USER', 'user'),
         'PASSWORD': os_environ.get('POSTGRES_PASSWORD', 'password'),
         'HOST': os_environ.get('POSTGRES_HOST', 'localhost'),
