@@ -29,12 +29,14 @@ class MainView(TemplateView):
 
     template_name = 'bank/pages/main.html'
 
-    def get_group(self):
+    def get_leaderbord(self):
+        """Получение лидерборда по группам"""
+
         if not self.request.user.is_authenticated:
             return dict()
         dict_group = dict()
         groups = VtbGroup.objects.filter(users=self.request.user)
-        print(groups)
+
         for group in groups:
             group_name = group.name
             dict_group[group_name] = []
@@ -45,12 +47,12 @@ class MainView(TemplateView):
                 balance = get_balance(public_key=public_key)
 
                 dict_group[group_name].append((user.username, balance['maticAmount']))
-            dict_group[group_name].sort(key=lambda x: x[1], reverse=True)
+            dict_group[group_name].sort(key=lambda x: str(x[1]), reverse=True)
         return dict_group
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['groups'] = self.get_group()
+        context['groups'] = self.get_leaderbord()
         return context
 
 
