@@ -1,0 +1,56 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns#">
+
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8" name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, width=device-width">
+
+    <title> {% block title %}{% endblock %} </title>
+    <!--bootstrap-->
+    <link href="{% static 'bootstrap-5.0.2/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!--Гугл шритфты-->
+    <link href='//fonts.googleapis.com/css?family=Lato:400,700|Kaushan+Script|Montserrat' rel='stylesheet' type='text/css'>
+    <link href="//fonts.googleapis.com/css2?family=Source+Serif+4:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'bank/css/base.css' %}">
+
+    <!-- доп стили для других страниц-->
+    {% block head_block %}{% endblock %}
+
+</head>
+
+<body>
+
+<!-- НАВИГАЦИЯ -->
+{% include './blocks/navbar.html' %}
+
+<!-- КОНТЕНТ -->
+{% block content %} {% endblock %}
+
+
+<!-- ПАГИНАЦИЯ -->
+
+{% block pagination %}{% endblock %}
+
+<!-- ЭКСТРА СЕКИЦЯ (файлы, дополнения ...) -->
+
+{% block extrasection %}{% endblock %}
+
+<!-- ПОДВАЛ  -->
+
+{% include './blocks/footer.html' %}
+
+
+<!-- СКРИПТЫ -->
+<script type="text/javascript" src="{% static 'jquery/js/jquery-3.2.1.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bootstrap-5.0.2/js/bootstrap.bundle.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'jquery-tmpl/js/jquery.tmpl.1.0.0.js' %}"></script>
+<script src="{% static 'game_1/js/base.js' %}"></script>
+
+<!-- МОИ СКРИПТЫ  -->
+{% block user_scripts %} {% endblock %}
+
+</body>
+</html>
