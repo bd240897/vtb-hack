@@ -2,33 +2,32 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.views import View
+from django.views.generic import TemplateView
 
 from .models import Poll, Choice, Vote
 
 
-class PollsView(View):
+class PollsListView(TemplateView):
     """Вывод списка существующих опросов"""
 
-    def get(self, request):
-        polls = Poll.objects.all()
-        return render(
-            request,
-            template_name="polls/pages/polls.html",
-            context={
-                "polls": polls,
-            }
-        )
+    template_name = "polls/pages/polls.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["polls"] = Poll.objects.all()
+        return context
 
 
 class PollView(View):
     """Работа с конкретным опросом по id"""
 
+    template_name = "polls/pages/poll.html"
 
     def get(self, request, poll_id):
         """Отдача опроса"""
 
         poll = Poll.objects.get(id=poll_id)
-        return render(request, template_name="polls/pages/poll.html", context={"poll": poll,})
+        return render(request, template_name=self.template_name, context={"poll": poll,})
 
     def post(self, request, poll_id):
         """Обработка формы"""
@@ -49,7 +48,7 @@ class PollView(View):
 
         return render(
             request,
-            template_name="polls/pages/poll.html",
+            template_name=self.template_name,
             context={
                 "poll": poll,
                 "success_message": "Voted Successfully",
