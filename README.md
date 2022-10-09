@@ -40,12 +40,6 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-c
     docker-compose -f docker-compose.yml up --build -d
 
 # Запуск через Docker
-    sudo apt update
-    sudo apt install apt-transport-https ca-certificates curl software-properties-common
-    sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-    sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-    sudo apt-cache policy docker-ce
-    sudo apt install docker-ce
     sudo git clone https://github.com/bd240897/vtb-hack.git
     cd ./vtb-hack/
 
