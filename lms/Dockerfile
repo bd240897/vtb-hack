@@ -19,7 +19,7 @@ COPY . .
 RUN pip install -r req.txt
 
 #RUN python manage.py migrate
-#RUN python manage.py makemigrations bank
+#RUN python manage.py makemigrations polls
 #RUN python manage.py migrate
 
 RUN chmod +x ./entrypoint.sh

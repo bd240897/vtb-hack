@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
 from django.views.generic import TemplateView, UpdateView, RedirectView, CreateView, FormView
@@ -21,7 +22,7 @@ class RedirectMainView(RedirectView):
 
 
 # class TestView(TemplateView):
-#     template_name = 'bank/django_templates/index.html'
+#     template_name = 'polls/django_templates/index.html'
 
 class MainView(TemplateView):
     """Главная страница"""

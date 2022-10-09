@@ -1,0 +1,44 @@
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+
+    <!-- Иконки -->
+    <div class="container-fluid">
+        <!-- БРЕНД>-->
+        <a href="{% url 'main' %}" class="navbar-brand text-danger">VТ₿</a>
+
+        <!-- Кнопка гамбургер -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Разделы меню -->
+            <div class="navbar-collapse justify-content-between" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a href="{% url 'main' %}" class="nav-link active">Главная</a></li>
+                    <li class="nav-item"><a href="{% url 'profile' %}" class="nav-link active">Профиль</a></li>
+                    <li class="nav-item"><a href="{% url 'activities' %}" class="nav-link active">Активности</a></li>
+                    <li class="nav-item"><a href="{% url 'shop' %}" class="nav-link active">Магазин</a></li>
+                    {% if request.user.is_staff %}
+                    <li class="nav-item"><a href="{% url 'panel' %}" class="nav-link active">Админ</a></li>
+                    {% endif %}
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" style="color: red">Вы вошли как <strong>{{user}}</strong></a></li>
+                    {% if not request.user.is_authenticated %}
+                        <li class="nav-item"><a href="{% url 'game_login' %}" class="nav-link active">Войти</a></li>
+                        <li class="nav-item"><a href="{% url 'game_register' %}" class="nav-link active">Регистрация</a></li>
+                    {% endif %}
+                    {% if request.user.is_authenticated %}
+                        <li class="nav-item"><a href="{% url 'game_logout' %}" class="nav-link active">Выйти</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+</nav>

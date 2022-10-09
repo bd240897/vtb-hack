@@ -26,6 +26,7 @@ urlpatterns = [
     path('group/create/', CreateGroupView.as_view(), name='group_create'),
     path('group/add/', AddUserToGroupView.as_view(), name='group_add'),
 
+
 ]
 
 urlpatterns_login = [
