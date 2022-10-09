@@ -2,6 +2,7 @@
 # Удаляем все старые данные
 python manage.py flush --no-input
 # Выполняем миграции
+python manage.py migrate auth
 python manage.py migrate
 python manage.py migrate sessions
 python manage.py makemigrations
