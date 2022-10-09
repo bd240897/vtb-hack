@@ -2,22 +2,25 @@
 
 {% block content %}
 
-<h1>admin</h1>
+
 
 <section class="py-3">
-    <div class="container border border-primary">
-        <h1 class="text-center">Профиль пользователя {{user}}</h1>
-        <div class="d-flex justify-content-between m-5">
+    <div class="container border border-2 border-primary rounded-3">
+        <div class="d-flex justify-content-between mx-5 mt-2 mb-5">
 
-            <div>
-                <h5>Баланс</h5>
-                <p>maticAmount = {{balance.maticAmount}}</p>
-                <p>coinsAmount = {{balance.coinsAmount}}</p>
+            <div class="p-2 rounded-3 col-12">
+                <h5 class="text-center m-3">Кошелёк</h5>
+                <div class="mx-auto d-flex justify-content-center">
+                    <img src="https://img.icons8.com/pastel-glyph/100/000000/coin-wallet--v1.png"/>
+                </div>
+                <h2 class="text-center text-primary">{{balance.maticAmount}} Matic</h2>
+                <h2 class="text-center text-primary">{{balance.coinsAmount}} Coins</h2>
 
-                <div class="py-3">
+
+                <div class="pt-2">
                     {% for NFT_uri in balance_NFT %}
-                        <p>Для uri = {{NFT_uri.uri}}</p>
-                        <p>Вы владеете NFT с номерами:</p>
+                    <!--                    <p>Для uri = {{NFT_uri.uri}}</p>-->
+                    <p>Вы владеете NFT с номерами:</p>
                         {% for NFT_token in NFT_uri.tokens %}
                             {{NFT_token}}
                         {% endfor %}
@@ -25,122 +28,153 @@
                 </div>
 
             </div>
+
         </div>
     </div>
 </section>
 
-<section class="py-3">
-    <div class="container border border-primary">
-        <h3>Работа с группами</h3>
 
-        <div>
-            <h5>Создать группу</h5>
-            <div>
-                <!-- ОПОВЕЩЕНИЯ ДЖАНГИ -->
-                {% include '../blocks/django_messages.html' %}
+<section class="row pb-5 mb-5">
+    <center>
+        <ul class="nav nav-pills mb-3 col-8 mx-auto" id="pills-tab" role="tablist">
+            <li class="nav-item col mx-auto" role="presentation">
+                <button class="nav-link" id="pills-coins-tab" data-bs-toggle="pill" data-bs-target="#pills-coins" type="button" role="tab" aria-controls="pills-coins" aria-selected="false">Перевод коинов</button>
+            </li>
+            <li class="nav-item col mx-auto" role="presentation">
+                <button class="nav-link" id="pills-nft-generate-tab" data-bs-toggle="pill" data-bs-target="#pills-nft-generate" type="button" role="tab" aria-controls="pills-nft-generate" aria-selected="false">Сгенерировать NFT</button>
+            </li>
+            <li class="nav-item col mx-auto" role="presentation">
+                <button class="nav-link" id="pills-nft-tab" data-bs-toggle="pill" data-bs-target="#pills-nft" type="button" role="tab" aria-controls="pills-nft" aria-selected="true">Перевод NFT</button>
+            </li>
+            <li class="nav-item col mx-auto" role="presentation">
+                <button class="nav-link" id="pills-group-tab" data-bs-toggle="pill" data-bs-target="#pills-group" type="button" role="tab" aria-controls="pills-group" aria-selected="false">Создать группу</button>
+            </li>
+            <li class="nav-item col mx-auto" role="presentation">
+                <button class="nav-link" id="pills-group-add-tab" data-bs-toggle="pill" data-bs-target="#pills-group-add" type="button" role="tab" aria-controls="pills-group-add" aria-selected="false">Добавить в группу</button>
+            </li>
+        </ul>
+    </center>
 
-                <div class="enter-game d-flex flex-column justify-content-center align-items-center py-2">
-                    <form class="enter-game__form row g-3" method="post" action="{% url 'group_create' %}">
-                        <div class="enter-game__input col-auto">
-                            {{ form_group_create.as_p }}
+    <div class="tab-content" id="pills-tabContent">
+
+        <div class="tab-pane fade" id="pills-coins" role="tabpanel" aria-labelledby="pills-coins-tab">
+            <section class="">
+                <div class="container border border-2 border-primary rounded-3">
+
+                    <div>
+                        <!-- ОПОВЕЩЕНИЯ ДЖАНГИ -->
+                        {% include '../blocks/django_messages.html' %}
+
+                        <div class="enter-game d-flex flex-column justify-content-center align-items-center my-4">
+                            <form class="enter-game__form row g-3" method="post" action="{% url 'transfer_coin_admin' %}">
+                                {{ form_coin.type_coin }}
+                                {{ form_coin.to_account }}
+                                {{ form_coin.amount_id }}
+                                {% csrf_token %}
+                                <div class="enter-game__btn col-auto">
+                                    <button id="" type="submit" class="btn btn-primary mb-3">Перевести</button>
+                                </div>
+                            </form>
                         </div>
-                        {% csrf_token %}
-                        <div class="enter-game__btn col-auto">
-                            <button id="btn-enter-game" type="submit" class="btn btn-primary mb-3">Создать</button>
-                        </div>
-                    </form>
+                    </div>
+
                 </div>
-            </div>
+            </section>
+        </div>
 
-            <h5>Добавить пользователя к уже существующей группе</h5>
-            <div>
-                <!-- ОПОВЕЩЕНИЯ ДЖАНГИ -->
-                {% include '../blocks/django_messages.html' %}
-
-                <div class="enter-game d-flex flex-column justify-content-center align-items-center py-2">
-                    <form class="enter-game__form row g-3" method="post" action="{% url 'group_add' %}">
-                        <div class="enter-game__input col-auto">
-                            {{ form_group_add.as_p }}
+        <div class="tab-pane fade" id="pills-nft-generate" role="tabpanel" aria-labelledby="pills-nft-generate-tab">
+            <section class="">
+                <div class="container border border-2 border-primary rounded-3">
+                    <div>
+                        <!-- ОПОВЕЩЕНИЯ ДЖАНГИ -->
+                        {% include '../blocks/django_messages.html' %}
+                        <div class=" d-flex flex-column justify-content-center align-items-center my-4">
+                            <form class="row g-3" method="post" action="{% url 'generate_NFT_admin' %}">
+                                <div class="enter-game__input col-auto">
+                                    {{ form_generate_NFT.as_p }}
+                                </div>
+                                {% csrf_token %}
+                                <div class="enter-game__btn col-auto">
+                                    <button id="" type="submit" class="btn btn-primary mb-3">Cгенерировать</button>
+                                </div>
+                            </form>
                         </div>
-                        {% csrf_token %}
-                        <div class="enter-game__btn col-auto">
-                            <button id="btn-enter-game" type="submit" class="btn btn-primary mb-3">Добавить</button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<section class="py-3">
-    <div class="container border border-primary">
-        <h5>Перевести денежку</h5>
-        <div>
-            <!-- ОПОВЕЩЕНИЯ ДЖАНГИ -->
-            {% include '../blocks/django_messages.html' %}
-
-            <div class="enter-game d-flex flex-column justify-content-center align-items-center py-2">
-                <form class="enter-game__form row g-3" method="post" action="{% url 'transfer_coin_admin' %}">
-                    <div class="enter-game__input col-auto">
-                        {{ form_coin.as_p }}
-                    </div>
-                    <!--TODO пока тут перевод только по открытому ключу-->
-                    <div class="enter-game__btn col-auto">
-                        <button id="btn-enter-game" type="submit" class="btn btn-primary mb-3">Перевести</button>
-                    </div>
-                    {% csrf_token %}
-                </form>
-            </div>
+            </section>
         </div>
 
-    </div>
-</section>
+        <div class="tab-pane fade" id="pills-nft" role="tabpanel" aria-labelledby="pills-nft-tab">
+            <section class="">
+                <div class="container border border-2 border-primary rounded-3">
+                    <div>
+                        <!-- ОПОВЕЩЕНИЯ ДЖАНГИ -->
+                        {% include '../blocks/django_messages.html' %}
+                        <div class="enter-game d-flex flex-column justify-content-center align-items-center my-4">
 
-<section class="py-3">
-    <div class="container border border-primary">
-        <h5>Сгенерировать NFT</h5>
-        <div>
-            <!-- ОПОВЕЩЕНИЯ ДЖАНГИ -->
-            {% include '../blocks/django_messages.html' %}
+                            <form class="enter-game__form row g-3" method="post" action="{% url 'transfer_NFT_admin' %}">
+                                {{ form_NFT.to_account }}
+                                {{ form_NFT.token_id }}
+                                {% csrf_token %}
+                                <div class="enter-game__btn col-auto">
+                                    <button id="" type="submit" class="btn btn-primary mb-3">Перевести</button>
+                                </div>
+                            </form>
 
-            <div class="enter-game d-flex flex-column justify-content-center align-items-center py-2">
-                <form class="enter-game__form row g-3" method="post" action="{% url 'generate_NFT_admin' %}">
-                    <div class="enter-game__input col-auto">
-                        {{ form_generate_NFT.as_p }}
+                        </div>
                     </div>
-                    {% csrf_token %}
-                    <div class="enter-game__btn col-auto">
-                        <button id="btn-enter-game" type="submit" class="btn btn-primary mb-3">Перевести</button>
-                    </div>
-                </form>
-            </div>
+                </div>
+            </section>
         </div>
 
-    </div>
-</section>
-
-<section class="py-3">
-    <div class="container border border-primary">
-        <h5>Перевести NFT</h5>
-        <div>
-            <!-- ОПОВЕЩЕНИЯ ДЖАНГИ -->
-            {% include '../blocks/django_messages.html' %}
-
-            <div class="enter-game d-flex flex-column justify-content-center align-items-center py-2">
-                <form class="enter-game__form row g-3" method="post" action="{% url 'transfer_NFT_admin' %}">
-                    <div class="enter-game__input col-auto">
-                        {{ form_NFT.as_p }}
+        <div class="tab-pane fade" id="pills-group" role="tabpanel" aria-labelledby="pills-group-tab">
+            <section class="">
+                <div class="container border border-2 border-primary rounded-3">
+                    <div>
+                        <!-- ОПОВЕЩЕНИЯ ДЖАНГИ -->
+                        {% include '../blocks/django_messages.html' %}
+                        <div class="enter-game d-flex flex-column justify-content-center align-items-center my-4">
+                            <form class="enter-game__form row g-3" method="post" action="{% url 'group_create' %}">
+                                <div class="enter-game__input col-auto">
+                                    {{ form_group_create.as_p }}
+                                </div>
+                                {% csrf_token %}
+                                <div class="enter-game__btn col-auto">
+                                    <button id="" type="submit" class="btn btn-primary mb-3">Создать</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    {% csrf_token %}
-                    <div class="enter-game__btn col-auto">
-                        <button id="btn-enter-game" type="submit" class="btn btn-primary mb-3">Перевести</button>
+                </div>
+            </section>
+        </div>
+
+        <div class="tab-pane fade" id="pills-group-add" role="tabpanel" aria-labelledby="pills-group-add-tab">
+            <section class="">
+                <div class="container border border-2 border-primary rounded-3">
+                    <div>
+                        <!-- ОПОВЕЩЕНИЯ ДЖАНГИ -->
+                        {% include '../blocks/django_messages.html' %}
+                        <div class="enter-game d-flex flex-column justify-content-center align-items-center my-4">
+                            <form class="enter-game__form row g-3" method="post" action="{% url 'group_add' %}">
+                                <div class="enter-game__input col-auto">
+                                    {{ form_group_add.as_p }}
+                                </div>
+                                {% csrf_token %}
+                                <div class="enter-game__btn col-auto">
+                                    <button id="" type="submit" class="btn btn-primary mb-3">Добавить</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                </form>
-            </div>
+                </div>
+            </section>
         </div>
 
     </div>
 </section>
+
+
+
+
 {% endblock %}

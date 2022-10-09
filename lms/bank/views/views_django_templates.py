@@ -166,6 +166,8 @@ class TransferNFTView(View):
 
         if form.is_valid():
             to_account = request.POST.get('to_account')
+
+
             amount = request.POST.get('token_id')
             response = transfer_NFT(from_private_key=private_key, to_public_key=to_account, tokenId=amount)
             messages.success(request, response)
