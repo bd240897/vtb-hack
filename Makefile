@@ -4,5 +4,5 @@ up:
 down:
 	sudo docker stop $$(docker ps -a -q)
 
-clear:
+cl:
 	sudo docker system prune && sudo docker volume prune
