@@ -63,13 +63,19 @@
 
                     <div>
                         <!-- ОПОВЕЩЕНИЯ ДЖАНГИ -->
-                        {% include '../blocks/django_messages.html' %}
+                        {% for message in messages %}
+                            {% if message.extra_tags == "transfer_coin" %}
+                                <div class="waiting-massage alert {{ message.level_tag|safe }} my-2" role="alert">
+                                    {{ message|safe }}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
 
                         <div class="enter-game d-flex flex-column justify-content-center align-items-center my-4">
                             <form class="enter-game__form row g-3" method="post" action="{% url 'transfer_coin_admin' %}">
                                 {{ form_coin.type_coin }}
                                 {{ form_coin.to_account }}
-                                {{ form_coin.amount_id }}
+                                {{ form_coin.amount }}
                                 {% csrf_token %}
                                 <div class="enter-game__btn col-auto">
                                     <button id="" type="submit" class="btn btn-primary mb-3">Перевести</button>
@@ -87,7 +93,14 @@
                 <div class="container border border-2 border-primary rounded-3">
                     <div>
                         <!-- ОПОВЕЩЕНИЯ ДЖАНГИ -->
-                        {% include '../blocks/django_messages.html' %}
+                        {% for message in messages %}
+                            {% if message.extra_tags == "generate_NFT" %}
+                                <div class="waiting-massage alert {{ message.level_tag|safe }} my-2" role="alert">
+                                    {{ message|safe }}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+
                         <div class=" d-flex flex-column justify-content-center align-items-center my-4">
                             <form class="row g-3" method="post" action="{% url 'generate_NFT_admin' %}">
                                 <div class="enter-game__input col-auto">
@@ -109,7 +122,14 @@
                 <div class="container border border-2 border-primary rounded-3">
                     <div>
                         <!-- ОПОВЕЩЕНИЯ ДЖАНГИ -->
-                        {% include '../blocks/django_messages.html' %}
+                        {% for message in messages %}
+                            {% if message.extra_tags == "transfer_NFT" %}
+                                <div class="waiting-massage alert {{ message.level_tag|safe }} my-2" role="alert">
+                                    {{ message|safe }}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+
                         <div class="enter-game d-flex flex-column justify-content-center align-items-center my-4">
 
                             <form class="enter-game__form row g-3" method="post" action="{% url 'transfer_NFT_admin' %}">
@@ -132,7 +152,14 @@
                 <div class="container border border-2 border-primary rounded-3">
                     <div>
                         <!-- ОПОВЕЩЕНИЯ ДЖАНГИ -->
-                        {% include '../blocks/django_messages.html' %}
+                        {% for message in messages %}
+                            {% if message.extra_tags == "group_create" %}
+                                <div class="waiting-massage alert {{ message.level_tag|safe }} my-2" role="alert">
+                                    {{ message|safe }}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+
                         <div class="enter-game d-flex flex-column justify-content-center align-items-center my-4">
                             <form class="enter-game__form row g-3" method="post" action="{% url 'group_create' %}">
                                 <div class="enter-game__input col-auto">
@@ -154,7 +181,14 @@
                 <div class="container border border-2 border-primary rounded-3">
                     <div>
                         <!-- ОПОВЕЩЕНИЯ ДЖАНГИ -->
-                        {% include '../blocks/django_messages.html' %}
+                        {% for message in messages %}
+                            {% if message.extra_tags == "group_add" %}
+                                <div class="waiting-massage alert {{ message.level_tag|safe }} my-2" role="alert">
+                                    {{ message|safe }}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+
                         <div class="enter-game d-flex flex-column justify-content-center align-items-center my-4">
                             <form class="enter-game__form row g-3" method="post" action="{% url 'group_add' %}">
                                 <div class="enter-game__input col-auto">

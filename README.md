@@ -41,6 +41,8 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-c
 
 
 ## 3. Запуск через Docker-compose
+https://webdevblog.ru/kak-ispolzovat-django-postgresql-i-docker/
+
     sudo git clone https://github.com/bd240897/vtb-hack.git
     cd ./vtb-hack/
 

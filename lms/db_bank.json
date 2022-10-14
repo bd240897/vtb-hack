@@ -1,0 +1,122 @@
+[
+{
+  "model": "bank.profile",
+  "pk": 1,
+  "fields": {
+    "name": "Borisov Dima",
+    "city": "Kaluga",
+    "rank": "student",
+    "description": "short info about me",
+    "avatar": "polls/profile/avatar_default.png",
+    "user": 2,
+    "status": "user"
+  }
+},
+{
+  "model": "bank.profile",
+  "pk": 2,
+  "fields": {
+    "name": "Borisov Dima",
+    "city": "Kaluga",
+    "rank": "student",
+    "description": "short info about me",
+    "avatar": "polls/profile/avatar_default.png",
+    "user": 3,
+    "status": "user"
+  }
+},
+{
+  "model": "bank.profile",
+  "pk": 3,
+  "fields": {
+    "name": "Borisov Dima",
+    "city": "Kaluga",
+    "rank": "student",
+    "description": "short info about me",
+    "avatar": "polls/profile/avatar_default.png",
+    "user": 4,
+    "status": "user"
+  }
+},
+{
+  "model": "bank.profile",
+  "pk": 4,
+  "fields": {
+    "name": "Borisov Dima",
+    "city": "Kaluga",
+    "rank": "student",
+    "description": "short info about me",
+    "avatar": "polls/profile/avatar_default.png",
+    "user": 3,
+    "status": "user"
+  }
+},
+{
+  "model": "bank.account",
+  "pk": 1,
+  "fields": {
+    "user": 2,
+    "publicKey": "0x108911B5fe4f5Ca4CF2B6Ef3F537F558080eD7ed",
+    "privateKey": "257ab886630a7901af58b08ba5a37eda8faf220d53b72254766a83ae66f295c6"
+  }
+},
+{
+  "model": "bank.account",
+  "pk": 2,
+  "fields": {
+    "user": 3,
+    "publicKey": "0x5A708A96833A5C0295313Af66f17F1f2B8b6AccB",
+    "privateKey": "a961bd764411dc8b4cbc86694ac45acb1b0b571de5c7f8a01d191255b6095c95"
+  }
+},
+{
+  "model": "bank.account",
+  "pk": 3,
+  "fields": {
+    "user": 4,
+    "publicKey": "0x94bE95efF11be480eba532Ac79934d9F470339b9",
+    "privateKey": "41f2a3d19d2a0014f4bdb497ced6449397707581a108e354d92c0aa7fe68b323"
+  }
+},
+{
+  "model": "bank.account",
+  "pk": 4,
+  "fields": {
+    "user": 3,
+    "publicKey": "0xcd34A6575339e4FBf995B1007191aa1e00CD7C88",
+    "privateKey": "9a76970437cf3ba0a40d877f69aec945c6d3aa329cc37b34963eed828bdfe108"
+  }
+},
+{
+  "model": "bank.vtbgroup",
+  "pk": 1,
+  "fields": {
+    "name": "Group of winners",
+    "owner": 3,
+    "users": []
+  }
+},
+{
+  "model": "bank.vtbgroup",
+  "pk": 2,
+  "fields": {
+    "name": "Group of winners",
+    "owner": 4,
+    "users": [
+      4
+    ]
+  }
+},
+{
+  "model": "bank.vtbgroup",
+  "pk": 3,
+  "fields": {
+    "name": "Group of winners",
+    "owner": 3,
+    "users": [
+      3,
+      4
+    ]
+  }
+}
+]

@@ -4,13 +4,13 @@
  
 {% if request.user.is_authenticated %}
     <section class="py-3">
-        <div class="container border border-primary">
+        <div class="container border border-primary d-flex justify-content-center">
             {% for poll in polls %}
-                <div class="card my-2 col-3">
+                <div class="card m-2 col-3">
                     <div class="card-body">
                         <h5 class="card-title">{{ poll.name }}</h5>
                         <p class="card-text">{{ poll.description }}</p>
-                        <a href="{% url 'activities_poll' poll.id %}" class="btn btn-primary">Vote</a>
+                        <a href="{% url 'activities_poll' poll.id %}" class="btn btn-primary">Голосовать</a>
                     </div>
                 </div>
             {% endfor %}
@@ -20,28 +20,31 @@
     <section class="pb-3">
         <div class="container border border-primary">
             <h2 class="text-center">Рейтинг</h2>
+            {% if groups %}
+                {% for key, values in groups.items %}
+                    <div class="">
+                        <h3>Название группы: <b>{{key}}</b></h3>
+                        <table class="table table-striped" id="table">
 
-            {% for key, values in groups.items %}
-                <div class="">
-                    <h3>Название группы: <b>{{key}}</b></h3>
-                    <table class="table table-striped" id="table">
-
-                        <thead>
-                            <tr>
-                                <th scope="col" >user</th>
-                                <th scope="col">score</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for user in values %}
-                            <tr>
-                                <td>{{user.0}}</td><td>{{user.1}}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            {% endfor %}
+                            <thead>
+                                <tr>
+                                    <th scope="col" >user</th>
+                                    <th scope="col">score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in values %}
+                                <tr>
+                                    <td>{{user.0}}</td><td>{{user.1}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>Вы не состоите ни в одной группе</p>
+            {% endif %}
         </div>
     </section>
 {% else %}

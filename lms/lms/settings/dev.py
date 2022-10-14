@@ -17,6 +17,17 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2', #os_environ.get('POSTGRES_ENGINE', 'django.db.backends.sqlite3'),
+#         'NAME': "habrdb",
+#         'USER': "habrpguser",
+#         'PASSWORD': "pgpwd4habr",
+#         'HOST': "62.84.118.84",
+#         'PORT': "5432",
+#     }
+# }
+
 ############ DEVUF TOOLBAR ###################
 INSTALLED_APPS.append('debug_toolbar')
 MIDDLEWARE.append('debug_toolbar.middleware.DebugToolbarMiddleware')

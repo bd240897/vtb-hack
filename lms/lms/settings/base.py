@@ -69,7 +69,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 # Internationalization
 LANGUAGE_CODE = 'ru-RU'
 USE_I18N = True
-TIME_ZONE = 'UTC'
+TIME_ZONE = "Europe/Moscow" # 'UTC'
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
@@ -82,3 +82,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# настройка massages
+from django.contrib.messages import constants as messages
+# https://django.how/extras/messages/
+MESSAGE_TAGS = {
+        messages.DEBUG: 'alert-secondary',
+        messages.INFO: 'alert-info',
+        messages.SUCCESS: 'alert-success',
+        messages.WARNING: 'alert-warning',
+        messages.ERROR: 'alert-danger',
+ }
