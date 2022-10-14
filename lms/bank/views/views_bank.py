@@ -7,12 +7,11 @@ from django.views.generic import TemplateView, UpdateView, RedirectView, CreateV
 from django.contrib import messages
 
 from ..mixins.panel_admin_mixins import *
-
 from ..models import *
 from ..forms import *
 from ..logic import *
 
-############## ИСПОРТ ИЗ ДРУГОГО МОДУЛЯ ##############
+# ИМПОРТ ИЗ ДРУГОГО МОДУЛЯ
 from polls.views import *
 
 
@@ -50,7 +49,8 @@ class ProfileView(PanelAdminMixin, LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        messages.error(self.request, 'Ошибка заполнения формы', extra_tags="generate_NFT")
+
+        context['its_my_page'] = True
 
         # данные профиля
         profile = Profile.objects.get(user=self.request.user)
@@ -80,6 +80,58 @@ class ProfileView(PanelAdminMixin, LoginRequiredMixin, TemplateView):
 
         # группы
         context['groups'] = self.get_group()
+        return context
+
+
+class ProfileOtherUserView(PanelAdminMixin, LoginRequiredMixin, TemplateView):
+    """Профиль пользователя"""
+
+    template_name = 'bank/pages/profile.html'
+    login_url = 'game_login'
+    redirect_field_name = 'main'
+
+    def get_group(self, user):
+        """Получить список груп в которых состою"""
+
+        dict_group = dict()
+        groups = VtbGroup.objects.filter(users=user)
+        print(groups)
+        for group in groups:
+            group_name = group.name
+            dict_group[group_name] = []
+            for user in group.users.all():
+                dict_group[group_name].append(user.username)
+        return dict_group
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = User.objects.get(username=self.kwargs['slug'])
+        print(1111111, user)
+        context['its_my_page'] = False
+
+        # данные профиля
+        profile = Profile.objects.get(user=user)
+        id_profile = profile.id
+        context['profile'] = profile
+        context['id_profile'] = id_profile
+
+        # данные акканута
+        account = Account.objects.get(user=user)
+        public_key = account.publicKey
+        private_key = account.privateKey
+
+        # TODO delete ot
+        # данные для отладки
+        context['public_key'] = public_key
+        context['private_key'] = private_key
+
+        # получение баланса и истории транзакций
+        context['balance'] = get_balance(public_key=public_key)
+        context['balance_NFT'] = get_balance_NFT(public_key=public_key)
+        context['history'] = get_history_transaction(public_key=public_key).get('history')[:10]
+
+        # группы
+        context['groups'] = self.get_group(user)
         return context
 
 class ProfileEditView(PanelAdminMixin, UpdateView):
@@ -167,6 +219,7 @@ class GenerateNFTView(View):
 
 class TransferCoinView(View):
     """Перевод coin"""
+
     redirect_url_name = "profile"
 
     def post(self, request, *args, **kwargs):
@@ -179,7 +232,12 @@ class TransferCoinView(View):
         private_key = account.privateKey
 
         if form.is_valid():
-            to_public_key = form.cleaned_data.get('to_account')
+            # ищем юзера в базе денных
+            to_account_name = form.cleaned_data.get('to_account')
+            to_account = Account.objects.filter(user__username__icontains=to_account_name).first()
+            to_public_key = to_account.publicKey
+
+            # забираем остальные поля из запроса
             amount = form.cleaned_data.get('amount')
             type_coin = form.cleaned_data.get('type_coin')
 
@@ -205,9 +263,13 @@ class TransferNFTView(View):
         private_key = account.privateKey
 
         if form.is_valid():
-            to_account = form.cleaned_data.get('to_account')
+            # ищем юзера в базе денных
+            to_account_name = form.cleaned_data.get('to_account')
+            to_account = Account.objects.filter(user__username__icontains=to_account_name).first()
+            to_public_key = to_account.publicKey
+
             amount = form.cleaned_data.get('token_id')
-            response = transfer_NFT(from_private_key=private_key, to_public_key=to_account, tokenId=amount)
+            response = transfer_NFT(from_private_key=private_key, to_public_key=to_public_key, tokenId=amount)
             messages.success(request, response, extra_tags="transfer_NFT")
             return HttpResponseRedirect(reverse(self.redirect_url_name))
         else:
@@ -215,91 +277,4 @@ class TransferNFTView(View):
             return HttpResponseRedirect(reverse(self.redirect_url_name))
 
 
-############### PANEL ADMIN ###################
 
-class PanelView(PanelAdminMixin, TemplateView):
-    """Страница админа"""
-
-    template_name = 'bank/pages/admin_panel.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        # данные акканута
-        account = Account.objects.get(user=self.request.user)
-        public_key = account.publicKey
-        private_key = account.privateKey
-
-        # TODO delete ot
-        # данные для отладки
-        context['public_key'] = public_key
-        context['private_key'] = private_key
-
-        # получение баланса и истории транзакций
-        context['balance'] = get_balance(public_key=public_key)
-        context['balance_NFT'] = get_balance_NFT(public_key=public_key)
-
-        # форма перевода денег
-        context['form_coin'] = TransferCoinForm()
-        context['form_NFT'] = TransferNFTForm()
-        context['form_generate_NFT'] = GenerateNFTForm()
-
-        # Добавление в группы
-        context['form_group_create'] = CreateGroupForm()
-        context['form_group_add'] = AddUserToGroupForm()
-        return context
-
-
-class CreateGroupView(View):
-    """Перевод NFT"""
-
-    def post(self, request):
-        form = CreateGroupForm(request.POST)
-
-        if form.is_valid():
-            owner_id = form.cleaned_data.get('owner')
-            name = form.cleaned_data.get('name')
-            VtbGroup.objects.create(name=name, owner=User.objects.get(pk=owner_id))
-            messages.success(request, f'Группа {name} создана!', extra_tags="group_create")
-            return HttpResponseRedirect(reverse("panel"))
-        else:
-            messages.error(request, 'Ошибка заполнения формы', extra_tags="group_create")
-            return HttpResponseRedirect(reverse("panel"))
-
-
-class AddUserToGroupView(View):
-    """Перевод NFT"""
-
-    def post(self, request):
-        form = AddUserToGroupForm(request.POST)
-
-        if form.is_valid():
-            user_id = form.cleaned_data.get('user')
-            user = User.objects.get(pk=user_id)
-            user_name = user.username
-
-            group_id = form.cleaned_data.get('group')
-            group = VtbGroup.objects.get(pk=group_id)
-            group_name = group.name
-
-            group.users.add(User.objects.get(pk=user_id))
-            messages.success(request, f'{user_name} добавлен в группу {group_name}!', extra_tags="group_add")
-            return HttpResponseRedirect(reverse("panel"))
-        else:
-            messages.error(request, 'Ошибка заполнения формы', extra_tags="group_add")
-            return HttpResponseRedirect(reverse("panel"))
-
-
-class GenerateNFTAdminView(GenerateNFTView):
-    """Генерация NFT"""
-    redirect_url_name = "panel"
-
-
-class TransferNFTAdminView(TransferNFTView):
-    """Перевод NFT"""
-    redirect_url_name = "panel"
-
-
-class TransferCoinAdminView(TransferCoinView):
-    """Перевод coin"""
-    redirect_url_name = "panel"

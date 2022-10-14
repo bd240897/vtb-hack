@@ -1,15 +1,13 @@
 # chat/urls.py
 from django.urls import path, include, re_path
-from .views.views import RedirectMainView, MainView, ProfileView, ProfileEditView, ActivitiesView, ShopView, PanelView, GenerateNFTView,\
-TransferNFTView, TransferCoinView, CreateGroupView, AddUserToGroupView, RegisterUser, LoginUser, logout_user
-from .views.views_django_templates import GenerateNFTAdminView, TransferNFTAdminView, TransferCoinAdminView, \
-    ActivitiesPollView
+from .views.views import *
 
 urlpatterns = [
     # редирект на главную страницу
     path('', RedirectMainView.as_view(), name='main'),
     path('main/', MainView.as_view(), name='main'),
     path('profile/', ProfileView.as_view(), name='profile'),
+    path('profile/<slug:slug>/', ProfileOtherUserView.as_view(), name='profile_other'),
     path('profile/edit/<slug:pk>/', ProfileEditView.as_view(), name='profile_edit'),
     path('activities/', ActivitiesView.as_view(), name='activities'),
     path('shop/', ShopView.as_view(), name='shop'),

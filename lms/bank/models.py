@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 import requests as requests_lib
+from django.urls import reverse
+
 
 class Profile(models.Model):
     """Дополнительные данные для профиля юзера"""
@@ -10,7 +12,7 @@ class Profile(models.Model):
     rank = models.CharField(max_length=255, blank=True, null=True)
     description = models.CharField(max_length=255, blank=True, null=True)
     avatar = models.ImageField(upload_to='bank/profile', default='bank/profile/avatar_default.png')
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile_user')
     CHOICES = {
         ('user', 'user'),
         ('admin', 'admin'),
@@ -20,14 +22,17 @@ class Profile(models.Model):
 
     status = models.CharField(verbose_name="Статус ", max_length=32, default="user", blank=True, choices=CHOICES)
 
-    def is_user_admin(self):
-        pass
+    # def is_user_admin(self):
+    #     pass
+    #
+    # def is_user_editor(self):
+    #     pass
+    #
+    # def is_user_boss(self):
+    #     pass
 
-    def is_user_editor(self):
-        pass
-
-    def is_user_boss(self):
-        pass
+    def get_absolute_url(self):
+        return reverse('profile_other', kwargs={'slug': self.user.username})
 
     def __str__(self):
         return f'{self.user.username}'
@@ -37,7 +42,7 @@ class Profile(models.Model):
 class Account(models.Model):
     """Аккаунт с данными для кошелька"""
 
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.PROTECT, related_name='account_user')
     publicKey = models.CharField(max_length=255, blank=True, null=True)
     privateKey = models.CharField(max_length=255, blank=True, null=True)
 

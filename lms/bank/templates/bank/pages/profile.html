@@ -6,7 +6,7 @@
 
 <section class="py-3">
     <div class="container border border-primary">
-        <h5>Мои ключи</h5>
+        <h5>Ключи</h5>
         <p>public_key = {{public_key}}</p>
         <p>private_key = {{private_key}}</p>
     </div>
@@ -69,15 +69,16 @@
             <li class="nav-item col mx-auto" role="presentation">
                 <button class="nav-link active" id="pills-history-tab" data-bs-toggle="pill" data-bs-target="#pills-history" type="button" role="tab" aria-controls="pills-history" aria-selected="true">История</button>
             </li>
+
+            {% if its_my_page %}
             <li class="nav-item col mx-auto" role="presentation">
                 <button class="nav-link" id="pills-coins-tab" data-bs-toggle="pill" data-bs-target="#pills-coins" type="button" role="tab" aria-controls="pills-coins" aria-selected="false">Перевод коинов</button>
             </li>
             <li class="nav-item col mx-auto" role="presentation">
                 <button class="nav-link" id="pills-nft-tab" data-bs-toggle="pill" data-bs-target="#pills-nft" type="button" role="tab" aria-controls="pills-nft" aria-selected="false">Перевод NFT</button>
             </li>
-<!--            <li class="nav-item col mx-auto" role="presentation">-->
-<!--                <button class="nav-link" id="pills-collection-tab" data-bs-toggle="pill" data-bs-target="#pills-collection" type="button" role="tab" aria-controls="pills-collection" aria-selected="false">Колекция NFT</button>-->
-<!--            </li>-->
+            {% endif %}
+
             <li class="nav-item col mx-auto" role="presentation">
                 <button class="nav-link" id="pills-groups-tab" data-bs-toggle="pill" data-bs-target="#pills-groups" type="button" role="tab" aria-controls="pills-groups" aria-selected="false">Группы</button>
             </li>
@@ -242,19 +243,6 @@
             </section>
         </div>
 
-<!--        <div class="tab-pane fade" id="pills-collection" role="tabpanel" aria-labelledby="pills-collection-tab">-->
-<!--            <section class="">-->
-<!--                <div class="container border border-2 border-primary rounded-3">-->
-
-<!--                    <div>-->
-<!--                        <p>Name</p>-->
-<!--                        <a>link</a>-->
-<!--                    </div>-->
-
-<!--                </div>-->
-<!--            </section>-->
-<!--        </div>-->
-
         <div class="tab-pane fade" id="pills-groups" role="tabpanel" aria-labelledby="pills-contact-tab">
             <section class="">
                 {% if worker.is_user_boss %}
@@ -270,7 +258,7 @@
                         <h5 class="text-center py-3">{{key}}</h5>
                         <ul class="list-group">
                             {% for user in values %}
-                            <li class="list-group-item">{{user}}</li>
+                                <li class="list-group-item"><a href="{% url 'profile_other' user %}">{{ user }}</a></li>
                             {% endfor %}
                         </ul>
                     </div>

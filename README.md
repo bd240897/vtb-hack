@@ -93,3 +93,34 @@ https://webdevblog.ru/kak-ispolzovat-django-postgresql-i-docker/
 
     клонировать конкретную ветку git
     sudo git clone https://github.com/bd240897/vtb-hack.git --branch develop
+
+### очистить БД
+    python manage.py migrate <app> zero
+
+### установка django-extension
+    https://www.youtube.com/watch?v=8z3osE4aJ0I
+    https://django-extensions.readthedocs.io/en/latest/graph_models.html
+    https://github.com/django-extensions/django-extensions
+    https://simpleit.rocks/python/django/generate-uml-class-diagrams-from-django-models/
+    pip install django-extensions
+    pip install pyparsing
+    pip install graphviz
+
+    pip install pydot
+    conda install graphviz // another way https://graphviz.org/download/
+    
+    add to path C:\Games\Graphviz\bin and C:\Games\Graphviz\bin\dot.exe (панель управления - система - параметры ситемы)
+    // нужно будет перезагрзить комп!
+    
+    INSTALLED_APPS = (
+        ...
+        'django_extensions',
+        ...
+    )
+    
+    // команды
+    python manage.py graph_models -a -o myapp_models.png
+    python manage.py show_urls
+    python manage.py validate_templates
+    python manage.py shell_plus
+    python manage.py runserver_plus
