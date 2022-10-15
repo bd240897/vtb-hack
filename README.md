@@ -124,3 +124,26 @@ https://webdevblog.ru/kak-ispolzovat-django-postgresql-i-docker/
     python manage.py validate_templates
     python manage.py shell_plus
     python manage.py runserver_plus
+
+### Удаленная БД
+    https://habr.com/ru/post/578744/
+
+### load data
+    // by commands or setup()
+    https://stackoverflow.com/questions/41518910/how-to-make-a-script-to-insert-data-in-my-default-sqlite3-database-django
+    // by dump data
+    https://the-bosha.ru/2016/06/29/django-delaem-damp-bazy-dannykh-i-vosstanavlivaem-iz-nego-s-dumpdata-i-loaddata/
+
+### Литература
+
+    // книги
+    https://www.rulit.me/data/programs/resources/pdf/Django-3-By-Example_RuLit_Me_607171.pdf
+    https://codernet.ru/tem/static/pdfjs/web/viewer.html?file=/media/Django%202%20в%20примерах.%20А.Меле/django_2_v_primerax_a_mele.pdf
+    https://pocoz.gitbooks.io/django-v-primerah/content/glava-8-upravlenie-platezhami-i-zakazami.html
+    https://github.com/PacktPublishing/Django-2-by-Example
+    // курсы
+    https://proproprogs.ru/django/dobavlyaem-slagi-slug-k-url-adresam
+    https://www.youtube.com/watch?v=HQB6dYOeo3M
+    // streamlit
+    https://www.youtube.com/watch?v=8M20LyCZDOY&list=PLtqF5YXg7GLmCvTswG32NqQypOuYkPRUE&index=3
+    https://www.youtube.com/watch?v=YClmpnpszq8

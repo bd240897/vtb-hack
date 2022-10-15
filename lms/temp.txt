@@ -1,0 +1,89 @@
+/	bank.views.views_bank.RedirectMainView	main
+/__debug__/history_refresh/	debug_toolbar.panels.history.views.history_refresh	djdt:history_refresh
+/__debug__/history_sidebar/	debug_toolbar.panels.history.views.history_sidebar	djdt:history_sidebar
+/__debug__/render_panel/	debug_toolbar.views.render_panel	djdt:render_panel
+/__debug__/sql_explain/	debug_toolbar.panels.sql.views.sql_explain	djdt:sql_explain
+/__debug__/sql_profile/	debug_toolbar.panels.sql.views.sql_profile	djdt:sql_profile
+/__debug__/sql_select/	debug_toolbar.panels.sql.views.sql_select	djdt:sql_select
+/__debug__/template_source/	debug_toolbar.panels.templates.views.template_source	djdt:template_source
+/activities/	bank.views.views_bank.ActivitiesView	activities
+/activities/poll/<int:poll_id>/	bank.views.views_bank.ActivitiesPollView	activities_poll
+/admin/	django.contrib.admin.sites.index	admin:index
+/admin/<app_label>/	django.contrib.admin.sites.app_index	admin:app_list
+/admin/<url>	django.contrib.admin.sites.catch_all_view
+/admin/auth/group/	django.contrib.admin.options.changelist_view	admin:auth_group_changelist
+/admin/auth/group/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/auth/group/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:auth_group_change
+/admin/auth/group/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:auth_group_delete
+/admin/auth/group/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:auth_group_history
+/admin/auth/group/add/	django.contrib.admin.options.add_view	admin:auth_group_add
+/admin/auth/user/	django.contrib.admin.options.changelist_view	admin:auth_user_changelist
+/admin/auth/user/<id>/password/	django.contrib.auth.admin.user_change_password	admin:auth_user_password_change
+/admin/auth/user/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/auth/user/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:auth_user_change
+/admin/auth/user/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:auth_user_delete
+/admin/auth/user/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:auth_user_history
+/admin/auth/user/add/	django.contrib.auth.admin.add_view	admin:auth_user_add
+/admin/autocomplete/	django.contrib.admin.sites.autocomplete_view	admin:autocomplete
+/admin/bank/account/	django.contrib.admin.options.changelist_view	admin:bank_account_changelist
+/admin/bank/account/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/bank/account/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:bank_account_change
+/admin/bank/account/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:bank_account_delete
+/admin/bank/account/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:bank_account_history
+/admin/bank/account/add/	django.contrib.admin.options.add_view	admin:bank_account_add
+/admin/bank/profile/	django.contrib.admin.options.changelist_view	admin:bank_profile_changelist
+/admin/bank/profile/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/bank/profile/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:bank_profile_change
+/admin/bank/profile/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:bank_profile_delete
+/admin/bank/profile/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:bank_profile_history
+/admin/bank/profile/add/	django.contrib.admin.options.add_view	admin:bank_profile_add
+/admin/bank/vtbgroup/	django.contrib.admin.options.changelist_view	admin:bank_vtbgroup_changelist
+/admin/bank/vtbgroup/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/bank/vtbgroup/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:bank_vtbgroup_change
+/admin/bank/vtbgroup/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:bank_vtbgroup_delete
+/admin/bank/vtbgroup/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:bank_vtbgroup_history
+/admin/bank/vtbgroup/add/	django.contrib.admin.options.add_view	admin:bank_vtbgroup_add
+/admin/jsi18n/	django.contrib.admin.sites.i18n_javascript	admin:jsi18n
+/admin/login/	django.contrib.admin.sites.login	admin:login
+/admin/logout/	django.contrib.admin.sites.logout	admin:logout
+/admin/password_change/	django.contrib.admin.sites.password_change	admin:password_change
+/admin/password_change/done/	django.contrib.admin.sites.password_change_done	admin:password_change_done
+/admin/polls/choice/	django.contrib.admin.options.changelist_view	admin:polls_choice_changelist
+/admin/polls/choice/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/polls/choice/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:polls_choice_change
+/admin/polls/choice/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:polls_choice_delete
+/admin/polls/choice/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:polls_choice_history
+/admin/polls/choice/add/	django.contrib.admin.options.add_view	admin:polls_choice_add
+/admin/polls/poll/	django.contrib.admin.options.changelist_view	admin:polls_poll_changelist
+/admin/polls/poll/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/polls/poll/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:polls_poll_change
+/admin/polls/poll/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:polls_poll_delete
+/admin/polls/poll/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:polls_poll_history
+/admin/polls/poll/add/	django.contrib.admin.options.add_view	admin:polls_poll_add
+/admin/polls/vote/	django.contrib.admin.options.changelist_view	admin:polls_vote_changelist
+/admin/polls/vote/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/polls/vote/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:polls_vote_change
+/admin/polls/vote/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:polls_vote_delete
+/admin/polls/vote/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:polls_vote_history
+/admin/polls/vote/add/	django.contrib.admin.options.add_view	admin:polls_vote_add
+/admin/r/<int:content_type_id>/<path:object_id>/	django.contrib.contenttypes.views.shortcut	admin:view_on_site
+/group/add/	bank.views.views_admin_panel.AddUserToGroupView	group_add
+/group/create/	bank.views.views_admin_panel.CreateGroupView	group_create
+/login/	bank.views.views_login.LoginUser	game_login
+/logout/	bank.views.views_login.logout_user	game_logout
+/main/	bank.views.views_bank.MainView	main
+/media/<path>	django.views.static.serve
+/panel/	bank.views.views_admin_panel.PanelView	panel
+/panel/generate/nft/	bank.views.views_admin_panel.GenerateNFTAdminView	generate_NFT_admin
+/panel/transfer/coin/	bank.views.views_admin_panel.TransferCoinAdminView	transfer_coin_admin
+/panel/transfer/nft/	bank.views.views_admin_panel.TransferNFTAdminView	transfer_NFT_admin
+/polls/	polls.views.PollsListView	polls
+/polls/poll/<int:poll_id>/	polls.views.PollView	poll
+/profile/	bank.views.views_bank.ProfileView	profile
+/profile/<slug:slug>/	bank.views.views_bank.ProfileOtherUserView	profile_other
+/profile/edit/<slug:pk>/	bank.views.views_bank.ProfileEditView	profile_edit
+/profile/generate/nft/	bank.views.views_bank.GenerateNFTView	generate_NFT
+/profile/transfer/coin/	bank.views.views_bank.TransferCoinView	transfer_coin
+/profile/transfer/nft/	bank.views.views_bank.TransferNFTView	transfer_NFT
+/register/	bank.views.views_login.RegisterUser	game_register
+/shop/	bank.views.views_bank.ShopView	shop
