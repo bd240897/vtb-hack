@@ -119,7 +119,7 @@ https://webdevblog.ru/kak-ispolzovat-django-postgresql-i-docker/
     )
     
     // команды
-    python manage.py graph_models -a -o myapp_models.png
+    python manage.py graph_models -a -g -o lms.png
     python manage.py show_urls
     python manage.py validate_templates
     python manage.py shell_plus
@@ -134,6 +134,23 @@ https://webdevblog.ru/kak-ispolzovat-django-postgresql-i-docker/
     // by dump data
     https://the-bosha.ru/2016/06/29/django-delaem-damp-bazy-dannykh-i-vosstanavlivaem-iz-nego-s-dumpdata-i-loaddata/
 
+### Настройка админки
+    // django-school (django_movie)
+    https://www.youtube.com/watch?v=SZ-kPr4Z38A
+    https://www.youtube.com/watch?v=SZ-kPr4Z38A&list=PLF-NY6ldwAWrb6nQcPL21XX_-AmivFAYq&index=13
+    https://www.youtube.com/watch?v=iKqzyxVWuPU&list=PLF-NY6ldwAWrb6nQcPL21XX_-AmivFAYq&index=14
+    https://www.youtube.com/watch?v=iKqzyxVWuPU&list=PLF-NY6ldwAWrb6nQcPL21XX_-AmivFAYq&index=15
+    https://www.youtube.com/watch?v=YsAhxkSGJyg&list=PLF-NY6ldwAWrb6nQcPL21XX_-AmivFAYq&index=16
+    https://github.com/DJWOMS/django_movie/tree/2ee88bc34eb1ecf372d5d92e05261cecacb2e377
+    //selfedu
+    https://www.youtube.com/watch?v=6jyl85q6yRs&list=PLA0M1Bcd0w8xO_39zZll2u1lz_Q-Mwn1F&index=24
+    https://github.com/selfedu-rus/django-lessons
+
+### generate key with comment
+    https://www.youtube.com/watch?v=wDcjM7BySo0&t=5s
+    https://stackoverflow.com/questions/31813080/generate-new-ssh-keys-in-windows-10-11
+    ssh-keygen -t rsa -C "your email here" -f dima
+
 ### Литература
 
     // книги
@@ -147,3 +164,6 @@ https://webdevblog.ru/kak-ispolzovat-django-postgresql-i-docker/
     // streamlit
     https://www.youtube.com/watch?v=8M20LyCZDOY&list=PLtqF5YXg7GLmCvTswG32NqQypOuYkPRUE&index=3
     https://www.youtube.com/watch?v=YClmpnpszq8
+
+### Схема моей БД
+![Схема моей базы данных](lms.png "lms")
