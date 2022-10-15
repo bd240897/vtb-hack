@@ -151,6 +151,8 @@ https://webdevblog.ru/kak-ispolzovat-django-postgresql-i-docker/
     https://stackoverflow.com/questions/31813080/generate-new-ssh-keys-in-windows-10-11
     ssh-keygen -t rsa -C "your email here" -f dima
 
+
+
 ### Литература
 
     // книги
@@ -164,6 +166,51 @@ https://webdevblog.ru/kak-ispolzovat-django-postgresql-i-docker/
     // streamlit
     https://www.youtube.com/watch?v=8M20LyCZDOY&list=PLtqF5YXg7GLmCvTswG32NqQypOuYkPRUE&index=3
     https://www.youtube.com/watch?v=YClmpnpszq8
+    // получение размера экрана
+    https://habr.com/ru/post/509258/
+    // css media запросы
+    https://habr.com/ru/post/475832/
 
 ### Схема моей БД
 ![Схема моей базы данных](lms.png "lms")
+
+### BLOG VUE + DJANGO start find info
+//
+
+https://django.fun/ru/articles/tutorials/registraciya-i-avtorizaciya-polzovatelej-v-django-s-pomoshyu-djoser-i-veb-tokenov-json/
+    
+//
+
+https://github.com/Alexmhack/django_chat
+    
+//
+
+https://webdevblog.ru/django-vue-js-i-graphql/
+    
+//
+
+https://github.com/fussionlab/VueJs-Django
+    
+//
+
+https://habr.com/ru/post/492486/
+    
+//
+
+https://habr.com/ru/company/otus/blog/500884/
+
+### То что уже посмотрел
+// vue-movie - курс по vue?
+https://github.com/DJWOMS/vue-movie
+// djangochannel
+https://github.com/DJWOMS/djangochannel
+// cook_blog - блог шеф повара
+https://github.com/DJWOMS/cook_blog
+// django_movie_drf - видимо продолжение джанго муви ДРМ?
+https://github.com/DJWOMS/django_movie_drf
+// django_movie
+https://github.com/DJWOMS/django_movie
+// чат на vue + drf (jquery)
+???
+// чат на vue + drf + socket (fetch)
+???
