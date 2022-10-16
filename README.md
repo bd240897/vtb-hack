@@ -18,6 +18,20 @@ https://moretech.vtb.ru/
 - Docker
 - Bootstrap 5
 
+## Что реализовано
+- регистрация
+- добавление в группы
+- получение/ перевод/ генерация через внешнюю API коинов
+- лидерборд
+- опросник
+- профиль пользователя и его редактирование
+- рукописная админка (считай страничка)
+
+## Что не реализованно
+- магазин
+- группы сделаны не django-groups а просто табличкой
+- мобильная версия
+
 # Запуск через Docker (VPS in https://cloud.yandex.ru/)
 
 ## 1. Установка Docker (Ubuntu 20.04) 
@@ -166,6 +180,13 @@ https://webdevblog.ru/kak-ispolzovat-django-postgresql-i-docker/
     // streamlit
     https://www.youtube.com/watch?v=8M20LyCZDOY&list=PLtqF5YXg7GLmCvTswG32NqQypOuYkPRUE&index=3
     https://www.youtube.com/watch?v=YClmpnpszq8
+    https://docs.streamlit.io/
+    https://habr.com/ru/post/568836/
+    https://habr.com/ru/post/473196/
+    https://habr.com/ru/company/ruvds/blog/556158/
+    https://habr.com/ru/company/skillfactory/blog/509340/
+    https://medium.com/nuances-of-programming/streamlit-для-создания-интерактивных-веб-приложений-начало-9e6961877dc9
+    https://proglib.io/p/sozdanie-interaktivnyh-paneley-s-streamlit-i-python-2021-06-21
     // получение размера экрана
     https://habr.com/ru/post/509258/
     // css media запросы
@@ -199,18 +220,56 @@ https://habr.com/ru/post/492486/
 
 https://habr.com/ru/company/otus/blog/500884/
 
-### То что уже посмотрел
+### То что уже посмотрел (references)
+////// DjangoSchool //////
+https://www.youtube.com/c/DjangoSchool
+
 // vue-movie - курс по vue?
 https://github.com/DJWOMS/vue-movie
-// djangochannel
+
+// djangochannel - что это? он писал сайт для себя?
 https://github.com/DJWOMS/djangochannel
+
 // cook_blog - блог шеф повара
+https://www.youtube.com/watch?v=f7zwXjPJRtU&list=PLF-NY6ldwAWpK1DDLdRcmRRX4_WtOa-Bo
 https://github.com/DJWOMS/cook_blog
-// django_movie_drf - видимо продолжение джанго муви ДРМ?
+
+// django_movie_drf - видимо продолжение джанго муви но с drf
+https://www.youtube.com/watch?v=svx8GlynIAI&list=PLF-NY6ldwAWqSxUpnTBObEP21cFQxNJ7C&index=17
 https://github.com/DJWOMS/django_movie_drf
-// django_movie
+
+// django_movie - это тип его курс по джанге
+https://www.youtube.com/watch?v=kBNUGLVJoOo&list=PLF-NY6ldwAWrb6nQcPL21XX_-AmivFAYq&index=29
 https://github.com/DJWOMS/django_movie
-// чат на vue + drf (jquery)
-???
+
+// чат на vue + drf (jquery) - это его 0-й курс!!!!
+https://www.youtube.com/watch?v=y_As6ZLFWPg&list=PLF-NY6ldwAWqP9PqPU3LA7mX2KJVyLhC_&index=13
+https://github.com/DJWOMS/WomsChat2
+
 // чат на vue + drf + socket (fetch)
-???
+https://www.youtube.com/watch?v=hpMnjxyegDM&t=1s
+https://github.com/DJWOMS/DjangoWebSocketChatBackEnd
+https://github.com/DJWOMS/WomsWebSocketChat
+
+// диплой django+vue (не тот что в курсе 0) - в каком то стриме мб?
+
+// курс по vue
+
+////// STEPIC //////
+
+// SPA сайт на Django Rest Framework и NuxtJS
+https://stepik.org/course/82067/syllabus
+
+////// ANOTHER ////////
+
+// vue + docker
+https://ru.vuejs.org/v2/cookbook/dockerize-vuejs-app.html
+// vue documentations
+https://ru.vuejs.org/v2/guide/
+
+//////// Я РЕШАЛ //////////////////
+
+// django by example (unit 4)
+https://github.com/bd240897/Django-2-by-Example_part_2
+
+[my github list](./README/my_git.md)
