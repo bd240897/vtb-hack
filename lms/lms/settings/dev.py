@@ -28,7 +28,7 @@ DATABASES = {
 #     }
 # }
 
-############ DEVUF TOOLBAR ###################
+############ DEBUF TOOLBAR ###################
 INSTALLED_APPS.append('debug_toolbar')
 MIDDLEWARE.append('debug_toolbar.middleware.DebugToolbarMiddleware')
 
