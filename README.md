@@ -50,7 +50,7 @@ https://stackoverflow.com/questions/31813080/generate-new-ssh-keys-in-windows-10
     // открываем и опируем game-master.pub в yandex cloud
 
 ##### Подключение
-    ssh -i C:\Game\ssh\game-master dima@51.250.84.74
+    ssh -i C:\Games\ssh\game-master dima@51.250.84.74
     
 ##### Send file be ssh (optional)
     scp -i C:\Games\ssh\game-master <path-to-file> dima@84.201.187.44:/home/dima/
@@ -212,6 +212,7 @@ https://webdevblog.ru/kak-ispolzovat-django-postgresql-i-docker/
 
 ### Использование vim and nano
     https://losst.pro/tekstovyj-redaktor-nano-v-linux-dlya-novichkov
+    https://wiki.nareyko.by/nano
 
 # ДРУГИЕ ЗАМЕТКИ
 1. [Что в моем гитахеб?](./README/my_git.md)
